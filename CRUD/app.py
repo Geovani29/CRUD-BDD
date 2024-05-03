@@ -23,6 +23,7 @@ def gestionar_datos():
                 # Verificar si el nombre de autor ya existe
                 if mongo.db.Autores.find_one({'nombre': nombre_autor}):
                     flash('Nombre de autor duplicado. Ingrese un nombre diferente', 'error')
+                    flash('Monkey D. luffy', 'error')
                     return render_template('index.html')
                 else:
                     mongo.db.Autores.insert_one({'nombre': nombre_autor})
