@@ -62,18 +62,31 @@ def gestionar_datos():
             if operacion == 'insertar':
                 isbn = request.form['ISBN'] 
                 año = request.form['año']  
-                idioma = request.form['idioma']  
-                mongo.db.Ediciones.insert_one({'ISBN': isbn, 'año': año, 'idioma': idioma})
-                flash('Edición insertada correctamente', 'success')
+                idioma = request.form['idioma'] 
+                if not all([isbn, año, idioma]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
+                if mongo.db.Ediciones.find_one({'ISBN': isbn}):
+                    flash('ISBN de edición duplicado. Ingrese un ISBN diferente', 'error')
+                    return render_template('index.html')
+                else: 
+                    mongo.db.Ediciones.insert_one({'ISBN': isbn, 'año': año, 'idioma': idioma})
+                    flash('Edición insertada correctamente', 'success')
             elif operacion == 'actualizar':
                 isbn = request.form['ISBN']  
                 isbn_nuevo = request.form['ISBN_nuevo']  
                 año_nuevo = request.form['año_nuevo']  
-                idioma_nuevo = request.form['idioma_nuevo']  
+                idioma_nuevo = request.form['idioma_nuevo']
+                if not all([isbn, isbn_nuevo, año_nuevo, idioma_nuevo]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html') 
                 mongo.db.Ediciones.update_one({'ISBN': isbn}, {'$set': {'ISBN': isbn_nuevo, 'año': año_nuevo, 'idioma': idioma_nuevo}})
                 flash('Edición actualizada correctamente', 'success')
             elif operacion == 'borrar':
-                isbn = request.form['ISBN'] 
+                isbn = request.form['ISBN']
+                if not isbn:
+                    flash('ISBN es requerido', 'error')
+                    return render_template('index.html')
                 mongo.db.Ediciones.delete_one({'ISBN': isbn})
                 flash('Edición eliminada correctamente', 'success')
             
@@ -82,6 +95,10 @@ def gestionar_datos():
                     ISBN = request.form['ISBN']
                     numero_copia = request.form['numero_copia']
                     disponible = 'Si' if request.form.get('disponible', 'off') == 'on' else 'No'
+
+                    if not all([ISBN, numero_copia]):
+                        flash('Todos los campos son requeridos', 'error')
+                        return render_template('index.html')
 
                     mongo.db.Copias.insert_one({'ISBN': ISBN, 'numero': numero_copia, 'disponible': disponible})
                     flash('Copia insertada correctamente', 'success')
@@ -93,12 +110,20 @@ def gestionar_datos():
                     numero_copia_nuevo = request.form['numero_copia_nuevo']
                     disponible = request.form.get('disponible', False) == 'on'
 
+                    if not all([ISBN, ISBN_nuevo, numero_copia, numero_copia_nuevo]):
+                        flash('Todos los campos son requeridos', 'error')
+                        return render_template('index.html')
+
                     # Actualizar la disponibilidad de la copia en la colección Copias
                     mongo.db.Copias.update_one({'ISBN': ISBN, 'numero': numero_copia}, {'$set': {'disponible': disponible}})
                     flash('Copia actualizada correctamente', 'success')
             elif operacion == 'borrar':
                     ISBN = request.form['ISBN']
                     numero_copia = request.form['numero_copia']
+
+                    if not all([ISBN, numero_copia]):
+                        flash('Todos los campos son requeridos', 'error')
+                        return render_template('index.html')
 
                     # Eliminar la copia de la colección Copias
                     mongo.db.Copias.delete_one({'ISBN': ISBN, 'numero': numero_copia})
@@ -110,6 +135,10 @@ def gestionar_datos():
                     RUT = request.form['RUT']
                     nombre = request.form['nombre']
 
+                    if not all([RUT, nombre]):
+                        flash('Todos los campos son requeridos', 'error')
+                        return render_template('index.html')
+
                     mongo.db.Usuarios.insert_one({'RUT': RUT, 'nombre': nombre})
                     flash('Usuario insertado correctamente', 'success')
                     
@@ -117,11 +146,19 @@ def gestionar_datos():
                     RUT = request.form['RUT']
                     nombre_nuevo = request.form['nombre_nuevo']
 
+                    if not all([RUT, nombre_nuevo]):
+                        flash('Todos los campos son requeridos', 'error')
+                        return render_template('index.html')    
+
                     # Actualizar la disponibilidad de la copia en la colección Copias
                     mongo.db.Usuarios.update_one({'RUT': RUT}, {'$set': {'nombre': nombre_nuevo}})
                     flash('Usuario actualizado correctamente', 'success')
             elif operacion == 'borrar':
                     RUT = request.form['RUT']
+
+                    if not RUT:
+                        flash('Todos los campos son requeridos', 'error')
+                        return render_template('index.html')
 
                     # Eliminar la copia de la colección Copias
                     mongo.db.Usuarios.delete_one({'RUT': RUT})
@@ -135,6 +172,10 @@ def gestionar_datos():
                 fecha_prestamo = request.form['fecha_prestamo']
                 fecha_devolucion = request.form['fecha_devolucion']
 
+                if not all([RUT, ISBN, numero_copia, fecha_prestamo, fecha_devolucion]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
+
                 mongo.db.Prestamos.insert_one({'RUT': RUT, 'ISBN': ISBN, 'numero_copia': numero_copia, 'fecha_prestamo': fecha_prestamo, 'fecha_devolucion': fecha_devolucion})
                 flash('Préstamo insertado correctamente', 'success')
             elif operacion == 'actualizar':
@@ -144,12 +185,20 @@ def gestionar_datos():
                 fecha_prestamo_nuevo = request.form['fecha_prestamo_nuevo']
                 fecha_devolucion_nuevo = request.form['fecha_devolucion_nuevo']
 
+                if not all([RUT, ISBN, numero_copia_nuevo, fecha_prestamo_nuevo, fecha_devolucion_nuevo]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
+
                 mongo.db.Prestamos.update_one({'RUT': RUT,'ISBN': ISBN}, {'$set': {'numero_copia':numero_copia_nuevo,'fecha_prestamo': fecha_prestamo_nuevo, 'fecha_devolucion': fecha_devolucion_nuevo}})
                 flash('Préstamo actualizado correctamente', 'success')
             elif operacion == 'borrar':
                 RUT = request.form['RUT']
                 ISBN = request.form['ISBN']
                 numero_copia = request.form['numero_copia']
+
+                if not all([RUT, ISBN, numero_copia]):  
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
 
                 mongo.db.Prestamos.delete_one({'RUT': RUT, 'ISBN': ISBN, 'numero_copia': numero_copia})
                 flash('Préstamo eliminado correctamente', 'success')
@@ -159,6 +208,10 @@ def gestionar_datos():
                 nombre_autor = request.form['nombre']
                 nombre_libro = request.form['titulo']
 
+                if not all([nombre_autor, nombre_libro]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
+
                 mongo.db.Autores.insert_one({'nombre del autor': nombre_autor, 'nombre del libro': nombre_libro})
                 flash('Autor y libro insertado correctamente', 'success')
             elif operacion == 'actualizar':
@@ -167,11 +220,19 @@ def gestionar_datos():
                 nombre_nuevo_a = request.form['nombre_nuevo']
                 nombre_nuevo = request.form['titulo_nuevo']
 
+                if not all([nombre_autor, nombre_libro, nombre_nuevo_a, nombre_nuevo]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
+
                 mongo.db.Autores.update_one({'nombre del autor': nombre_autor,'nombre del libro': nombre_libro}, {'$set': {'nombre del autor': nombre_nuevo_a, 'nombre del libro': nombre_nuevo}})
                 flash('Autor y libro actualizado correctamente', 'success')
             elif operacion == 'borrar':
                 nombre_autor = request.form['nombre']
                 nombre_libro = request.form['titulo']
+
+                if not all([nombre_autor, nombre_libro]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
 
                 mongo.db.Autores.delete_one({'nombre del autor': nombre_autor, 'nombre del libro': nombre_libro})
                 flash('Autor y libro eliminado correctamente', 'success')
@@ -181,6 +242,10 @@ def gestionar_datos():
                 nombre_libro = request.form['titulo']
                 ISBN = request.form['ISBN']
 
+                if not all([nombre_libro, ISBN]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
+
                 mongo.db.Tiene.insert_one({'nombre del libro': nombre_libro, 'ISBN': ISBN})
                 flash('Libro e ISBN insertado correctamente', 'success')
             elif operacion == 'actualizar':
@@ -189,12 +254,20 @@ def gestionar_datos():
                 nombre_nuevo = request.form['titulo_nuevo']
                 ISBN_nuevo = request.form['ISBN_nuevo']
 
+                if not all([nombre_libro, ISBN, nombre_nuevo, ISBN_nuevo]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
+
 
                 mongo.db.Tiene.update_one({'nombre del libro': nombre_libro, 'ISBN': ISBN}, {'$set': {'nombre del libro': nombre_nuevo, 'ISBN': ISBN_nuevo}})
                 flash('Libro e ISBN  actualizado correctamente', 'success')
             elif operacion == 'borrar':
                 nombre_libro = request.form['titulo']
                 ISBN = request.form['ISBN']
+
+                if not all([nombre_libro, ISBN]):
+                    flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
 
                 mongo.db.Tiene.delete_one({'nombre del libro': nombre_libro, 'ISBN': ISBN})
                 flash('Libro e ISBN  eliminado correctamente', 'success')

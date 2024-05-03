@@ -216,7 +216,7 @@ input[type="submit"]:hover {
                     }
                 }
             } else if (tipoEntidad === 'edicion') {
-                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                if (operacion === 'insertar' || operacion === 'actualizar') {
                     document.getElementById('ISBN_fields').style.display = 'block';
                     document.getElementById('año_fields').style.display = 'block';
                     document.getElementById('idioma_fields').style.display = 'block';
@@ -225,6 +225,8 @@ input[type="submit"]:hover {
                         document.getElementById('año_nuevo_fields').style.display = 'block';
                         document.getElementById('idioma_nuevo_fields').style.display = 'block';
                     }
+                }else if (operacion === 'borrar') {
+                    document.getElementById('ISBN_fields').style.display = 'block';
                 }
             } else if (tipoEntidad === 'copia') {
                 if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
