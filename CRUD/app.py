@@ -270,7 +270,7 @@ def gestionar_datos():
                     return render_template('index.html')
 
                 mongo.db.Tiene.delete_one({'nombre del libro': nombre_libro, 'ISBN': ISBN})
-                flash('Libro e ISBN  eliminado correctamente', 'success')
+                flash('Libro e ISBN  eliminado correctamente', 'successs')
                 
     return render_template('index.html')
 
