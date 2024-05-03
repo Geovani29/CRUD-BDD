@@ -257,6 +257,7 @@ input[type="submit"]:hover {
                 } else if (operacion === 'actualizar') {
                     document.getElementById('RUT').style.display = 'block';
                     document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('numero_copia_nuevo_fields').style.display = 'block';
                     document.getElementById('fecha_prestamo_nuevo_fields').style.display = 'block';
                     document.getElementById('fecha_devolucion_nuevo_fields').style.display = 'block';
                 }else if (operacion === 'borrar') {
@@ -300,17 +301,35 @@ input[type="submit"]:hover {
                 document.getElementById('fecha_devolucion_nuevo_fields').style.display = 'none';
             }
         }
+
+        function resetForm() {
+            document.querySelectorAll('.fields').forEach(function(field) {
+                field.style.display = 'none';
+            });
+
+            document.getElementById('RUT').style.display = 'none';
+            document.getElementById('nombre_nuevo_fields').style.display = 'none';
+            document.getElementById('titulo_nuevo_fields').style.display = 'none';
+            document.getElementById('ISBN_nuevo_fields').style.display = 'none';
+            document.getElementById('año_nuevo_fields').style.display = 'none';
+            document.getElementById('idioma_nuevo_fields').style.display = 'none';
+            document.getElementById('numero_copia_nuevo_fields').style.display = 'none';
+            document.getElementById('disponible_nuevo_fields').style.display = 'none';
+            document.getElementById('fecha_prestamo_nuevo_fields').style.display = 'none';
+            document.getElementById('fecha_devolucion_nuevo_fields').style.display = 'none';
+            document.getElementById('tipo_entidad').selectedIndex = 0;
+            document.getElementById('operacion').selectedIndex = 0;
+        }
     
         // Mostrar campos al cargar la página si es necesario
         window.onload = function() {
             var tipoEntidadGuardada = localStorage.getItem('tipo_entidad');
-            if (tipoEntidadGuardada) {
-                document.getElementById('tipo_entidad').value = tipoEntidadGuardada;
-                mostrarCampos();
-            }
             var operacionGuardada = localStorage.getItem('operacion');
-            if (operacionGuardada) {
+
+            if (tipoEntidadGuardada && operacionGuardada) {
+                document.getElementById('tipo_entidad').value = tipoEntidadGuardada;
                 document.getElementById('operacion').value = operacionGuardada;
+                mostrarCampos();
             }
         };
     
@@ -318,12 +337,11 @@ input[type="submit"]:hover {
         document.getElementById('formulario').addEventListener('submit', function() {
             var tipoEntidad = document.getElementById('tipo_entidad').value;
             localStorage.setItem('tipo_entidad', tipoEntidad);
-    
+
             // Guardar también la operación seleccionada
             var operacion = document.getElementById('operacion').value;
             localStorage.setItem('operacion', operacion);
         });
-    
         // Establecer la entidad seleccionada al cargar la página nuevamente
         var tipoEntidadGuardada = localStorage.getItem('tipo_entidad');
         if (tipoEntidadGuardada) {
