@@ -246,9 +246,10 @@ input[type="submit"]:hover {
                     }
                 }
             } else if (tipoEntidad === 'prestamo') {
-                if (operacion === 'insertar' || operacion === 'borrar') {
+                if (operacion === 'insertar') {
                     document.getElementById('RUT').style.display = 'block';
                     document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('numero_copia_fields').style.display = 'block';
                     document.getElementById('fecha_prestamo_fields').style.display = 'block';
                     document.getElementById('fecha_devolucion_fields').style.display = 'block';
                 } else if (operacion === 'actualizar') {
@@ -256,6 +257,10 @@ input[type="submit"]:hover {
                     document.getElementById('ISBN_fields').style.display = 'block';
                     document.getElementById('fecha_prestamo_nuevo_fields').style.display = 'block';
                     document.getElementById('fecha_devolucion_nuevo_fields').style.display = 'block';
+                }else if (operacion === 'borrar') {
+                    document.getElementById('RUT').style.display = 'block';
+                    document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('numero_copia_fields').style.display = 'block';
                 }
                 
             } else if (tipoEntidad === 'autores') {

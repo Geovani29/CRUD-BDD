@@ -127,24 +127,27 @@ def gestionar_datos():
             if operacion == 'insertar':
                 RUT = request.form['RUT']
                 ISBN = request.form['ISBN']
+                numero_copia = request.form['numero_copia']
                 fecha_prestamo = request.form['fecha_prestamo']
                 fecha_devolucion = request.form['fecha_devolucion']
 
-                mongo.db.Prestamos.insert_one({'RUT': RUT, 'ISBN': ISBN, 'fecha_prestamo': fecha_prestamo, 'fecha_devolucion': fecha_devolucion})
+                mongo.db.Prestamos.insert_one({'RUT': RUT, 'ISBN': ISBN, 'numero_copia': numero_copia, 'fecha_prestamo': fecha_prestamo, 'fecha_devolucion': fecha_devolucion})
                 flash('Préstamo insertado correctamente', 'success')
             elif operacion == 'actualizar':
                 RUT = request.form['RUT']
                 ISBN = request.form['ISBN']
+                numero_copia_nuevo= request.form['numero_copia_nuevo']
                 fecha_prestamo_nuevo = request.form['fecha_prestamo_nuevo']
                 fecha_devolucion_nuevo = request.form['fecha_devolucion_nuevo']
 
-                mongo.db.Prestamos.update_one({'RUT': RUT,'ISBN': ISBN}, {'$set': {'fecha_prestamo': fecha_prestamo_nuevo, 'fecha_devolucion': fecha_devolucion_nuevo}})
+                mongo.db.Prestamos.update_one({'RUT': RUT,'ISBN': ISBN}, {'$set': {'numero_copia':numero_copia_nuevo,'fecha_prestamo': fecha_prestamo_nuevo, 'fecha_devolucion': fecha_devolucion_nuevo}})
                 flash('Préstamo actualizado correctamente', 'success')
             elif operacion == 'borrar':
                 RUT = request.form['RUT']
                 ISBN = request.form['ISBN']
+                numero_copia = request.form['numero_copia']
 
-                mongo.db.Prestamos.delete_one({'RUT': RUT, 'ISBN': ISBN})
+                mongo.db.Prestamos.delete_one({'RUT': RUT, 'ISBN': ISBN, 'numero_copia': numero_copia})
                 flash('Préstamo eliminado correctamente', 'success')
             
         elif tipo_entidad == 'autores':
