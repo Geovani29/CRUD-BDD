@@ -42,8 +42,12 @@ def gestionar_datos():
         if tipo_entidad == 'libro':
             if operacion == 'insertar':
                 nombre_libro = request.form['titulo']
-                mongo.db.Libros.insert_one({'titulo': nombre_libro})
-                flash('libro insertado correctamente', 'success')
+                if mongo.db.Libros.find_one({'titulo': nombre_libro}):
+                    flash('Titulo de libro duplicado. Ingrese un nombre diferente', 'error')
+                    return render_template('index.html')
+                else:
+                    mongo.db.Libros.insert_one({'titulo': nombre_libro})
+                    flash('libro insertado correctamente', 'success')
             elif operacion == 'actualizar':
                 nombre_libro = request.form['titulo']
                 nombre_nuevo = request.form['titulo_nuevo']
@@ -54,23 +58,23 @@ def gestionar_datos():
                 mongo.db.Libros.delete_one({'titulo': nombre_libro})
                 flash('libro eliminado correctamente', 'success')
 
-        if tipo_entidad == 'Edicion':
+        if tipo_entidad == 'Edición':
             if operacion == 'insertar':
-                ISBN = request.form['ISBN']
+                isbn = request.form['isbn']
                 año = request.form['año']
                 idioma = request.form['idioma']
-                mongo.db.Edicion.insert_one({'nombre': ISBN, 'año': año, 'idioma':idioma})
+                mongo.db.Ediciones.insert_one({'isbn': isbn, 'año': año, 'idioma':idioma})
                 flash('Edicion insertada correctamente', 'success')
             elif operacion == 'actualizar':
                 ISBN = request.form['ISBN']
                 ISBN_nuevo = request.form['ISBN_nuevo']
                 año_nuevo = request.form['año_nuevo']
                 idioma_nuevo = request.form['idioma_nuevo']
-                mongo.db.Edicion.update_one({'ISBN': ISBN},{'$set': {'ISBN': ISBN_nuevo, 'año': año_nuevo, 'idioma': idioma_nuevo}})
+                mongo.db.Ediciones.update_one({'ISBN': ISBN},{'$set': {'ISBN': ISBN_nuevo, 'año': año_nuevo, 'idioma': idioma_nuevo}})
                 flash('Edicion actualizada correctamente', 'success')
             elif operacion == 'borrar':
                 ISBN = request.form['ISBN']
-                mongo.db.Edicion.delete_one({'ISBN': ISBN})
+                mongo.db.Ediciones.delete_one({'ISBN': ISBN})
                 flash('Edicion eliminada correctamente', 'success')
             
         elif tipo_entidad == 'copia':
