@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Datos</title>
+    <link rel="stylesheet" src="estilo.css">
+
+</head>
+<body>
+
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.fields {
+    display: none;
+}
+
+.fields label {
+    font-weight: bold;
+}
+
+.fields input[type="text"],
+.fields input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.fields input[type="checkbox"] {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+    </style>
+    <div class="container">
+        <h1>Gestionar Datos</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <form action="/gestionar_datos" method="POST" id="formulario">
+            <label for="tipo_entidad">Tipo de entidad:</label>
+            <select id="tipo_entidad" name="tipo_entidad" onchange="mostrarCampos()">
+                <option value="autor">Autor</option>
+                <option value="autores">Autores</option>
+                <option value="libro">Libro</option>
+                <option value="tiene">Tiene</option>
+                <option value="edicion">Edición</option>
+                <option value="copia">Copia</option>
+                <option value="prestamo">Préstamo</option>
+                <option value="usuario">Usuarios</option>
+            </select><br><br>
+
+            <label for="operacion">Operación:</label>
+            <select id="operacion" name="operacion" onchange="mostrarCampos()">
+                <option value="insertar">Insertar</option>
+                <option value="actualizar">Actualizar</option>
+                <option value="borrar">Borrar</option>
+            </select><br><br>
+
+            <div id="RUT" class="fields">
+                <label for="RUT">RUT:</label>
+                <input type="text" id="RUT_input" name="RUT"><br><br>
+            </div>
+
+            <div id="nombre_fields" class="fields">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre_input" name="nombre"><br><br>
+            </div>
+
+            <div id="nombre_nuevo_fields" class="fields">
+                <label for="nombre_nuevo">Nombre Nuevo:</label>
+                <input type="text" id="nombre_nuevo_input" name="nombre_nuevo"><br><br>
+            </div>
+
+            <div id="titulo_fields" class="fields">
+                <label for="titulo">Titulo:</label>
+                <input type="text" id="titulo_input" name="titulo"><br><br>
+            </div>
+            <div id="ISBN_fields" class="fields">
+                <label for="ISBN">ISBN:</label>
+                <input type="text" id="ISBN_input" name="ISBN"><br><br>
+            </div>
+            <div id="titulo_nuevo_fields" class="fields">
+                <label for="titulo_nuevo">Titulo Nuevo:</label>
+                <input type="text" id="titulo_nuevo_input" name="titulo_nuevo"><br><br>
+            </div>
+
+
+
+            <div id="numero_copia_fields" class="fields">
+                <label for="numero_copia">Número de Copia:</label>
+                <input type="text" id="numero_copia_input" name="numero_copia"><br><br>
+            </div>
+
+            <div id="ISBN_nuevo_fields" class="fields">
+                <label for="ISBN_nuevo">ISBN Nuevo:</label>
+                <input type="text" id="ISBN_nuevo_input" name="ISBN_nuevo"><br><br>
+            </div>
+
+            <div id="año_fields" class="fields">
+                <label for="año">Año:</label>
+                <input type="text" id="año_input" name="año"><br><br>
+            </div>
+
+            <div id="año_nuevo_fields" class="fields">
+                <label for="año_nuevo">Año Nuevo:</label>
+                <input type="text" id="año_nuevo_input" name="año_nuevo"><br><br>
+            </div>
+
+            <div id="idioma_fields" class="fields">
+                <label for="idioma">Idioma:</label>
+                <input type="text" id="idioma_input" name="idioma"><br><br>
+            </div>
+
+            <div id="numero_copia_nuevo_fields" class="fields">
+                <label for="numero_copia_nuevo">Nuevo Número de Copia:</label>
+                <input type="text" id="numero_copia_nuevo_input" name="numero_copia_nuevo"><br><br>
+            </div>
+
+            <div id="disponible_fields" class="fields">
+                <label for="disponible">Disponible:</label>
+                <input type="checkbox" id="disponible_input" name="disponible"><br><br>
+            </div>
+
+            <div id="disponible_nuevo_fields" class="fields">
+                <label for="disponible_nuevo">Nuevo Disponible:</label>
+                <input type="checkbox" id="disponible_nuevo_input" name="disponible_nuevo"><br><br>
+            </div>
+
+            <div id="fecha_prestamo_fields" class="fields">
+                <label for="fecha_prestamo">Fecha de Préstamo:</label>
+                <input type="date" id="fecha_prestamo_input" name="fecha_prestamo"><br><br>
+            </div>
+
+            <div id="fecha_devolucion_fields" class="fields">
+                <label for="fecha_devolucion">Fecha de Devolución:</label>
+                <input type="date" id="fecha_devolucion_input" name="fecha_devolucion"><br><br>
+            </div>
+
+            <div id="fecha_prestamo_nuevo_fields" class="fields">
+                <label for="fecha_prestamo_nuevo">Nueva Fecha de Préstamo:</label>
+                <input type="date" id="fecha_prestamo_nuevo_input" name="fecha_prestamo_nuevo"><br><br>
+            </div>
+
+            <div id="fecha_devolucion_nuevo_fields" class="fields">
+                <label for="fecha_devolucion_nuevo">Nueva Fecha de Devolución:</label>
+                <input type="date" id="fecha_devolucion_nuevo_input" name="fecha_devolucion_nuevo"><br><br>
+            </div>
+
+            <input type="submit" value="Ejecutar">
+
+        </form>
+    </div>
+
+    <script>
+        function mostrarCampos() {
+            var tipoEntidad = document.getElementById('tipo_entidad').value;
+            var operacion = document.getElementById('operacion').value;
+    
+            // Ocultar todos los campos
+            document.querySelectorAll('.fields').forEach(function(field) {
+                field.style.display = 'none';
+            });
+    
+            // Mostrar los campos correspondientes según la operación y el tipo de entidad
+            if (tipoEntidad === 'libro') {
+                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                    document.getElementById('titulo_fields').style.display = 'block';
+                    if (operacion === 'actualizar') {
+                        document.getElementById('titulo_nuevo_fields').style.display = 'block';
+                    }
+                }
+            } else if (tipoEntidad === 'edicion') {
+                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                    document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('año_fields').style.display = 'block';
+                    document.getElementById('idioma_fields').style.display = 'block';
+                    if (operacion === 'actualizar') {
+                        document.getElementById('ISBN_nuevo_fields').style.display = 'block';
+                        document.getElementById('año_nuevo_fields').style.display = 'block';
+                        document.getElementById('idioma_nuevo_fields').style.display = 'block';
+                    }
+                }
+            } else if (tipoEntidad === 'copia') {
+                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                    document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('numero_copia_fields').style.display = 'block';
+                    document.getElementById('disponible_fields').style.display = 'block';
+                    if (operacion === 'actualizar') {
+                        document.getElementById('ISBN_nuevo_fields').style.display = 'block';
+                        document.getElementById('numero_copia_nuevo_fields').style.display = 'block';
+                        document.getElementById('disponible_nuevo_fields').style.display = 'block';
+                    }
+                }
+            } else if (tipoEntidad === 'usuario') {
+                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                    document.getElementById('RUT').style.display = 'block';
+                    document.getElementById('nombre_fields').style.display = 'block';
+                    if (operacion === 'actualizar') {
+                        document.getElementById('nombre_nuevo_fields').style.display = 'block';
+                    }
+                }
+            } else if (tipoEntidad === 'prestamo') {
+                if (operacion === 'insertar' || operacion === 'borrar') {
+                    document.getElementById('RUT').style.display = 'block';
+                    document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('fecha_prestamo_fields').style.display = 'block';
+                    document.getElementById('fecha_devolucion_fields').style.display = 'block';
+                } else if (operacion === 'actualizar') {
+                    document.getElementById('RUT').style.display = 'block';
+                    document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('fecha_prestamo_nuevo_fields').style.display = 'block';
+                    document.getElementById('fecha_devolucion_nuevo_fields').style.display = 'block';
+                }
+                
+            } else if (tipoEntidad === 'autores') {
+                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                    document.getElementById('nombre_fields').style.display = 'block';
+                    document.getElementById('titulo_fields').style.display = 'block';
+                    if (operacion === 'actualizar') {
+                        document.getElementById('nombre_nuevo_fields').style.display = 'block';
+                        document.getElementById('titulo_nuevo_fields').style.display = 'block';
+                    }
+                }
+            } else if (tipoEntidad === 'tiene') {
+                    if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                        document.getElementById('titulo_fields').style.display = 'block';
+                        document.getElementById('ISBN_fields').style.display = 'block';
+                        if (operacion === 'actualizar') {
+                            document.getElementById('titulo_nuevo_fields').style.display = 'block';
+                            document.getElementById('ISBN_nuevo_fields').style.display = 'block';
+                        }
+                    }
+                                       
+            } else {
+                // Si no es una entidad específica, mostrar solo los campos de nombre
+                document.getElementById('nombre_fields').style.display = 'block';
+                if (operacion === 'actualizar') {
+                    document.getElementById('nombre_nuevo_fields').style.display = 'block';
+                }
+            }
+    
+            // Mostrar campos de fecha solo cuando la entidad seleccionada sea "prestamo"
+            if (tipoEntidad !== 'prestamo') {
+                document.getElementById('fecha_prestamo_fields').style.display = 'none';
+                document.getElementById('fecha_devolucion_fields').style.display = 'none';
+                document.getElementById('fecha_prestamo_nuevo_fields').style.display = 'none';
+                document.getElementById('fecha_devolucion_nuevo_fields').style.display = 'none';
+            }
+        }
+    
+        // Mostrar campos al cargar la página si es necesario
+        window.onload = function() {
+            var tipoEntidadGuardada = localStorage.getItem('tipo_entidad');
+            if (tipoEntidadGuardada) {
+                document.getElementById('tipo_entidad').value = tipoEntidadGuardada;
+                mostrarCampos();
+            }
+            var operacionGuardada = localStorage.getItem('operacion');
+            if (operacionGuardada) {
+                document.getElementById('operacion').value = operacionGuardada;
+            }
+        };
+    
+        // Recordar la selección de la entidad después de enviar el formulario
+        document.getElementById('formulario').addEventListener('submit', function() {
+            var tipoEntidad = document.getElementById('tipo_entidad').value;
+            localStorage.setItem('tipo_entidad', tipoEntidad);
+    
+            // Guardar también la operación seleccionada
+            var operacion = document.getElementById('operacion').value;
+            localStorage.setItem('operacion', operacion);
+        });
+    
+        // Establecer la entidad seleccionada al cargar la página nuevamente
+        var tipoEntidadGuardada = localStorage.getItem('tipo_entidad');
+        if (tipoEntidadGuardada) {
+            document.getElementById('tipo_entidad').value = tipoEntidadGuardada;
+            mostrarCampos();
+        }
+    </script>
+    
+        </form>
+    </div>
+</body>
+</html>
