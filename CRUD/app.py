@@ -21,20 +21,20 @@ def gestionar_datos():
             if operacion == 'insertar':
                 nombre_autor = request.form['nombre']
                 # Verificar si el nombre de autor ya existe
-                if mongo.db.Autores.find_one({'nombre': nombre_autor}):
+                if mongo.db.Autor.find_one({'nombre': nombre_autor}):
                     flash('Nombre de autor duplicado. Ingrese un nombre diferente', 'error')
                     return render_template('index.html')
                 else:
-                    mongo.db.Autores.insert_one({'nombre': nombre_autor})
+                    mongo.db.Autor.insert_one({'nombre': nombre_autor})
                     flash('Autor insertado correctamente', 'success')
             elif operacion == 'actualizar':
                 nombre_autor = request.form['nombre']
                 nombre_nuevo = request.form['nombre_nuevo']
-                mongo.db.Autores.update_one({'nombre': nombre_autor}, {'$set': {'nombre': nombre_nuevo}})
+                mongo.db.Autor.update_one({'nombre': nombre_autor}, {'$set': {'nombre': nombre_nuevo}})
                 flash('Autor actualizado correctamente', 'success')
             elif operacion == 'borrar':
                 nombre_autor = request.form['nombre']
-                mongo.db.Autores.delete_one({'nombre': nombre_autor})
+                mongo.db.Autor.delete_one({'nombre': nombre_autor})
                 flash('Autor eliminado correctamente', 'success')
             tipo_entidad = request.form['tipo_entidad']
             operacion = request.form['operacion']
