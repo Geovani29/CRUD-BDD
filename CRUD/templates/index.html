@@ -155,10 +155,19 @@ input[type="submit"]:hover {
     opacity: 1; /* El texto estará completamente visible en la mitad de la animación */
   }
 }
+
+#rut-input-container {
+    display: none;
+}
+
+#rut-input-container.show {
+    display: block;
+}
+.show {
+    display: block !important; /* Asegurarse de que la clase show sobrescriba cualquier estilo de display */
+}
+
     </style>
-  
-
-
 
     <div class="container">
         <h1>Gestionar Datos</h1>
@@ -292,16 +301,44 @@ input[type="submit"]:hover {
             <button type="submit" class="my-button">Mostrar Listado de Libros</button>
         </form>
         <form action="/resultados2" method="post" class="resultados-form">
-            <button type="submit" class="my-button">Mostrar Listado de Libros Prestados Por Usuarios</button>
-            <label for="RUT">RUT:</label>
+            <button type="button" id="show-rut-btn" class="my-button"> Libros Prestados Por Usuarios</button>
+            <!-- Campo para ingresar el RUT -->
+            <div id="rut-form-container" style="display: none;">
+                <label for="RUT">RUT:</label>
                 <input type="text" id="RUT_input" name="RUT"><br><br>
+                <button id="submit-rut-btn" class="my-button" >Enviar</button>
+            </div>
         </form>
     </div>
+    
+    
     <div class="animated-text">
         <h3 class="text">Team 4 </h3>
       </div>
    
     <script>
+ document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('show-rut-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('rut-form-container').classList.toggle('show');
+    });
+
+    // Ocultar el formulario al hacer clic nuevamente en el botón "Mostrar Listado de Libros Prestados Por Usuarios"
+    document.getElementById('submit-rut-btn').addEventListener('click', function(event) {
+        document.getElementById('rut-form-container').classList.remove('show');
+    });
+
+    // Manejar el envío del formulario
+    document.getElementById('rut-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var rutValue = document.getElementById('RUT_input').value;
+        window.location.href = "/resultados2?RUT=" + rutValue;
+    });
+});
+
+
+
+
         function mostrarCampos() {
             var tipoEntidad = document.getElementById('tipo_entidad').value;
             var operacion = document.getElementById('operacion').value;
