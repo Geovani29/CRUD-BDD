@@ -19,22 +19,22 @@ def gestionar_datos():
 
         if tipo_entidad == 'autor':
             if operacion == 'insertar':
-                nombre_autor = request.form['nombre']
+                nombre = request.form['nombre']
                 # Verificar si el nombre de autor ya existe
-                if mongo.db.Autor.find_one({'nombre': nombre_autor}):
+                if mongo.db.Autor.find_one({'nombre': nombre}):
                     flash('Nombre de autor duplicado. Ingrese un nombre diferente', 'error')
                     return render_template('index.html')
                 else:
-                    mongo.db.Autor.insert_one({'nombre': nombre_autor})
+                    mongo.db.Autor.insert_one({'nombre': nombre})
                     flash('Autor insertado correctamente', 'success')
             elif operacion == 'actualizar':
-                nombre_autor = request.form['nombre']
+                nombre = request.form['nombre']
                 nombre_nuevo = request.form['nombre_nuevo']
-                mongo.db.Autor.update_one({'nombre': nombre_autor}, {'$set': {'nombre': nombre_nuevo}})
+                mongo.db.Autor.update_one({'nombre': nombre}, {'$set': {'nombre': nombre_nuevo}})
                 flash('Autor actualizado correctamente', 'success')
             elif operacion == 'borrar':
-                nombre_autor = request.form['nombre']
-                mongo.db.Autor.delete_one({'nombre': nombre_autor})
+                nombre = request.form['nombre']
+                mongo.db.Autor.delete_one({'nombre': nombre})
                 flash('Autor eliminado correctamente', 'success')
             tipo_entidad = request.form['tipo_entidad']
             operacion = request.form['operacion']
@@ -211,7 +211,13 @@ def gestionar_datos():
                 if not all([nombre_autor, nombre_libro]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-
+                if not mongo.db.Autor.find_one({'nombre': nombre_autor}):
+                    flash('Autor no existe', 'error')
+                    return render_template('index.html')
+                if not mongo.db.Libros.find_one({'titulo': nombre_libro}):
+                    flash('Libro no existe', 'error')
+                    return render_template('index.html')
+                
                 mongo.db.Autores.insert_one({'nombre del autor': nombre_autor, 'nombre del libro': nombre_libro})
                 flash('Autor y libro insertado correctamente', 'success')
             elif operacion == 'actualizar':
@@ -276,7 +282,7 @@ def gestionar_datos():
 
 @app.route('/resultados', methods=['GET', 'POST'])
 def mostrar_resultados():
-        resultados = list(mongo.db.Autor.aggregate([
+    resultados = list(mongo.db.Autor.aggregate([
   {
     "$lookup": {
       "from": "Autores",
@@ -345,7 +351,7 @@ def mostrar_resultados():
 ]))
 
 
-        return render_template('resultados.html', resultados=resultados)
+    return render_template('resultados.html', resultados=resultados)
 
 
 if __name__ == '__main__':
