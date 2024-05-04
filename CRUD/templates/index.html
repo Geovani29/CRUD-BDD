@@ -243,15 +243,18 @@ input[type="submit"]:hover {
                     document.getElementById('ISBN_fields').style.display = 'block';
                 }
             } else if (tipoEntidad === 'copia') {
-                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                if (operacion === 'insertar') {
                     document.getElementById('ISBN_fields').style.display = 'block';
                     document.getElementById('numero_copia_fields').style.display = 'block';
                     document.getElementById('disponible_fields').style.display = 'block';
-                    if (operacion === 'actualizar') {
-                        document.getElementById('ISBN_nuevo_fields').style.display = 'block';
-                        document.getElementById('numero_copia_nuevo_fields').style.display = 'block';
-                        document.getElementById('disponible_nuevo_fields').style.display = 'block';
-                    }
+                    
+                }else if (operacion === 'actualizar') {
+                    document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('numero_copia_fields').style.display = 'block';
+                    document.getElementById('disponible_nuevo_fields').style.display = 'block';
+                }else if (operacion === 'borrar') {
+                    document.getElementById('ISBN_fields').style.display = 'block';
+                    document.getElementById('numero_copia_fields').style.display = 'block';
                 }
             } else if (tipoEntidad === 'usuario') {
                 if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
