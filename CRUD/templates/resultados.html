@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de la consulta</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Resultados de la consulta</h1>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Nombre del Autor</th>
+                    <th>Titulo del Libro</th>
+                    <th>ISBN</th>
+                    <th>Año</th>
+                    <th>Idioma</th>
+                    <th>Número de Copia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in resultados %}
+                <tr>
+                    <td>{{ result.nombre_autor }}</td>
+                    <td>{{ result.nombre_libro }}</td>
+                    <td>{{ result.ISBN }}</td>
+                    <td>{{ result.año }}</td>
+                    <td>{{ result.idioma }}</td>
+                    <td>{{ result.numero_copia }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

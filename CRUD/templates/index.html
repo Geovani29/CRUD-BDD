@@ -69,7 +69,18 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #45a049;
 }
+.my-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+.my-button:hover {
+    background-color: #45a049;
+}
     </style>
     <div class="container">
         <h1>Gestionar Datos</h1>
@@ -194,6 +205,9 @@ input[type="submit"]:hover {
 
             <input type="submit" value="Ejecutar">
 
+        </form>
+        <form action="/resultados" method="post">
+            <button type="submit", class="my-button">Mostrar Resultados</button>
         </form>
     </div>
 

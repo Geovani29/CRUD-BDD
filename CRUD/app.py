@@ -270,9 +270,82 @@ def gestionar_datos():
                     return render_template('index.html')
 
                 mongo.db.Tiene.delete_one({'nombre del libro': nombre_libro, 'ISBN': ISBN})
-                flash('Libro e ISBN  eliminado correctamente', 'successs')
+                flash('Libro e ISBN  eliminado correctamente', 'success')
                 
     return render_template('index.html')
+
+@app.route('/resultados', methods=['GET', 'POST'])
+def mostrar_resultados():
+        resultados = list(mongo.db.Autor.aggregate([
+  {
+    "$lookup": {
+      "from": "Autores",
+      "localField": "nombre",
+      "foreignField": "nombre del autor",
+      "as": "autor_info"
+    }
+  },
+  {
+    "$unwind": "$autor_info"
+  },
+  {
+    "$lookup": {
+      "from": "Libros",
+      "localField": "autor_info.nombre del libro", 
+      "foreignField": "titulo",
+      "as": "libro_info"
+    }
+  },
+  {
+    "$unwind": "$libro_info"
+  },
+  {
+    "$lookup": {
+      "from": "Tiene",
+      "localField": "libro_info.titulo",
+      "foreignField": "nombre del libro",  
+      "as": "tiene_info"
+    }
+  },
+  {
+    "$unwind": "$tiene_info"
+  },
+  {
+    "$lookup": {
+      "from": "Ediciones",
+      "localField": "tiene_info.ISBN",
+      "foreignField": "ISBN",
+      "as": "edicion_info"
+    }
+  },
+  {
+    "$unwind": "$edicion_info"
+  },
+  {
+    "$lookup": {
+      "from": "Copias",
+      "localField": "edicion_info.ISBN",
+      "foreignField": "ISBN",
+      "as": "copias_info"
+    }
+  },
+  {
+    "$unwind": "$copias_info"
+  },
+  {
+    "$project": {
+      "nombre_autor": "$nombre",
+      "nombre_libro": "$libro_info.titulo",
+      "ISBN": "$edicion_info.ISBN",
+      "año": "$edicion_info.año",
+      "idioma": "$edicion_info.idioma",
+      "numero_copia": "$copias_info.numero"
+    }
+  }
+]))
+
+
+        return render_template('resultados.html', resultados=resultados)
 
 
 if __name__ == '__main__':
