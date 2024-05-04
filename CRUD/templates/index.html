@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar Datos</title>
-    <link rel="stylesheet" src="estilo.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    
 
 </head>
-<body>
-
     <style>
+       
     body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background: linear-gradient(to bottom, #e0f3ff, #a6d8ff);
+    
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -22,12 +23,11 @@
 }
 
 .container {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 .fields {
     display: none;
 }
@@ -81,7 +81,85 @@ input[type="submit"]:hover {
 .my-button:hover {
     background-color: #45a049;
 }
+.side-container {
+    position: absolute; 
+    top: 50%;
+    right: 500px; /* Ajusta la distancia desde el borde derecho */
+    transform: translateY(-50%);
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.side-container .my-button {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.side-container .my-button:hover {
+    background-color: #45a049;
+}
+
+.resultados-form {
+    position: relative; /* Cambiado de absolute a relative */
+    margin-top: 10px; /* Ajusta la separación desde el contenedor anterior */
+}
+
+.animated-text {
+  position: absolute;
+  left: 50px; /* Ajusta la posición horizontal según sea necesario */
+  top: 50%; /* Centra verticalmente */
+  transform: translateY(-50%);
+  animation: moveArc 8s linear infinite; /* Aumenté la duración de la animación */
+}
+
+@keyframes moveArc {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(100px, -50px); /* Aumenté la distancia horizontal y vertical */
+  }
+  50% {
+    transform: translate(200px, 0); /* Aumenté la distancia horizontal */
+  }
+  75% {
+    transform: translate(300px, 50px); /* Aumenté la distancia horizontal y vertical */
+  }
+}
+
+.text {
+  margin: 0;
+  padding: 0;
+  font-size: 60px; /* Ajusta el tamaño del texto según sea necesario */
+  font-weight: bold;
+  color: #333; /* Ajusta el color del texto */
+  animation: fadeInOut 8s ease-in-out infinite alternate; /* Aumenté la duración de la animación */
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0; /* El texto estará invisible al inicio y al final de la animación */
+  }
+  50% {
+    opacity: 1; /* El texto estará completamente visible en la mitad de la animación */
+  }
+}
     </style>
+  
+
+
+
     <div class="container">
         <h1>Gestionar Datos</h1>
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -206,11 +284,21 @@ input[type="submit"]:hover {
             <input type="submit" value="Ejecutar">
 
         </form>
-        <form action="/resultados" method="post">
-            <button type="submit", class="my-button">Mostrar Resultados</button>
+       
+    </div>
+    <div class="side-container">
+        <h2>Consultas</h2>
+        <form action="/resultados" method="post" class="resultados-form">
+            <button type="submit" class="my-button">Mostrar Listado de Libros</button>
+        </form>
+        <form action="/resultados2" method="post" class="resultados-form">
+            <button type="submit" class="my-button">Mostrar Listado de Libros Prestados Por Usuarios</button>
         </form>
     </div>
-
+    <div class="animated-text">
+        <h3 class="text">Team 4 </h3>
+      </div>
+   
     <script>
         function mostrarCampos() {
             var tipoEntidad = document.getElementById('tipo_entidad').value;
@@ -257,14 +345,12 @@ input[type="submit"]:hover {
                     document.getElementById('numero_copia_fields').style.display = 'block';
                 }
             } else if (tipoEntidad === 'usuario') {
-                if (operacion === 'insertar') {
+                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
                     document.getElementById('RUT').style.display = 'block';
                     document.getElementById('nombre_fields').style.display = 'block';
-                } else if (operacion === 'actualizar') {
-                    document.getElementById('RUT').style.display = 'block';
-                    document.getElementById('nombre_nuevo_fields').style.display = 'block';
-                }else if (operacion === 'borrar') {
-                    document.getElementById('RUT').style.display = 'block';
+                    if (operacion === 'actualizar') {
+                        document.getElementById('nombre_nuevo_fields').style.display = 'block';
+                    }
                 }
             } else if (tipoEntidad === 'prestamo') {
                 if (operacion === 'insertar') {
@@ -367,6 +453,7 @@ input[type="submit"]:hover {
             document.getElementById('tipo_entidad').value = tipoEntidadGuardada;
             mostrarCampos();
         }
+        
     </script>
     
         </form>
