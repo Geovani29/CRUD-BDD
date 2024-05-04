@@ -257,12 +257,14 @@ input[type="submit"]:hover {
                     document.getElementById('numero_copia_fields').style.display = 'block';
                 }
             } else if (tipoEntidad === 'usuario') {
-                if (operacion === 'insertar' || operacion === 'borrar' || operacion === 'actualizar') {
+                if (operacion === 'insertar') {
                     document.getElementById('RUT').style.display = 'block';
                     document.getElementById('nombre_fields').style.display = 'block';
-                    if (operacion === 'actualizar') {
-                        document.getElementById('nombre_nuevo_fields').style.display = 'block';
-                    }
+                } else if (operacion === 'actualizar') {
+                    document.getElementById('RUT').style.display = 'block';
+                    document.getElementById('nombre_nuevo_fields').style.display = 'block';
+                }else if (operacion === 'borrar') {
+                    document.getElementById('RUT').style.display = 'block';
                 }
             } else if (tipoEntidad === 'prestamo') {
                 if (operacion === 'insertar') {
