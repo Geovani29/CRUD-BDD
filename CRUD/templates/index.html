@@ -84,7 +84,7 @@ input[type="submit"]:hover {
 .side-container {
     position: absolute; 
     top: 50%;
-    right: 500px; /* Ajusta la distancia desde el borde derecho */
+    right: 15%; /* Ajusta la distancia desde el borde derecho */
     transform: translateY(-50%);
     width: 200px;
     background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
@@ -293,6 +293,8 @@ input[type="submit"]:hover {
         </form>
         <form action="/resultados2" method="post" class="resultados-form">
             <button type="submit" class="my-button">Mostrar Listado de Libros Prestados Por Usuarios</button>
+            <label for="RUT">RUT:</label>
+                <input type="text" id="RUT_input" name="RUT"><br><br>
         </form>
     </div>
     <div class="animated-text">

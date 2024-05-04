@@ -463,6 +463,55 @@ def mostrar_resultados():
 
     return render_template('resultados.html', resultados=resultados)
 
+@app.route('/resultados2', methods=['GET', 'POST'])
+def resultados_rut():
+    if request.method == 'POST':
+        rut = request.form['RUT']
+        resultados_rut = mongo.db.Usuarios.aggregate([
+            {
+                "$match": {
+                    "RUT": rut
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "Prestamos",
+                    "localField": "RUT",
+                    "foreignField": "RUT",
+                    "as": "prestamos"
+                }
+            },
+            {
+                "$unwind": "$prestamos"
+            },
+            {
+                "$lookup": {
+                    "from": "Tiene",
+                    "localField": "prestamos.ISBN",
+                    "foreignField": "ISBN",
+                    "as": "tiene_info"
+                }
+            },
+            {
+                "$unwind": "$tiene_info"
+            },
+            {
+                "$project": {
+                    "_id": 0,
+                    "nombre": 1,
+                    "nombre_libro": "$tiene_info.nombre del libro",
+                    "ISBN": "$prestamos.ISBN",
+                    "numero_copia": "$prestamos.numero_copia",
+                    "fecha_prestamo": "$prestamos.fecha_prestamo",
+                    "fecha_devolucion": "$prestamos.fecha_devolucion"
+                }
+            }
+        ])
+        return render_template('resultado2.html', resultados=resultados_rut, rut=rut)
+    else:
+        # Si la solicitud es GET, simplemente renderiza la página resultados_rut.html sin resultados
+        return render_template('resultado2.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
