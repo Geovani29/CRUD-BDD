@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, flash
 from flask_pymongo import PyMongo
+import re
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clave_secreta'
@@ -23,6 +24,9 @@ def gestionar_datos():
                 if not nombre:
                     flash('Nombre de autor es requerido', 'error')
                     return render_template('index.html')
+                if not re.match(r'^[a-zA-Z\s]+$', nombre):
+                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    return render_template('index.html')
                 # Verificar si el nombre de autor ya existe
                 if mongo.db.Autor.find_one({'nombre': nombre}):
                     flash('Nombre de autor duplicado. Ingrese un nombre diferente', 'error')
@@ -36,22 +40,34 @@ def gestionar_datos():
                 if not all([nombre, nombre_nuevo]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
+                if not re.match(r'^[a-zA-Z\s]+$', nombre):
+                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    return render_template('index.html')
+                if not mongo.db.Autor.find_one({'nombre': nombre}):
+                    flash('Ese autor no existe', 'error')
+                    return render_template('index.html')
+                if mongo.db.Autor.find_one({'nombre': nombre_nuevo}):
+                    flash('Nombre de autor duplicado. Ingrese un nombre diferente', 'error')
+                    return render_template('index.html')
                 mongo.db.Autor.update_one({'nombre': nombre}, {'$set': {'nombre': nombre_nuevo}})
                 flash('Autor actualizado correctamente', 'success')
+                
+                
             elif operacion == 'borrar':
+                nombre = request.form['nombre']
                 if not request.form.get('nombre'):
                     flash('Nombre de autor es requerido', 'error')
+                    return render_template('index.html')
+                if not re.match(r'^[a-zA-Z\s]+$', nombre):
+                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 if not mongo.db.Autor.find_one({'nombre': request.form['nombre']}):
                     flash('Ese autor no existe', 'error')
                     return render_template('index.html')
-
-                nombre = request.form['nombre']
                 mongo.db.Autor.delete_one({'nombre': nombre})
                 flash('Autor eliminado correctamente', 'success')
             tipo_entidad = request.form['tipo_entidad']
             operacion = request.form['operacion']
-        
         elif tipo_entidad == 'libro':
             if operacion == 'insertar':
                 nombre_libro = request.form['titulo']
@@ -69,6 +85,12 @@ def gestionar_datos():
                 nombre_nuevo = request.form['titulo_nuevo']
                 if not all([nombre_libro, nombre_nuevo]):
                     flash('Todos los campos son requeridos', 'error')
+                    return render_template('index.html')
+                if not mongo.db.Libros.find_one({'titulo': nombre_libro}):
+                    flash('Ese libro no existe', 'error')
+                    return render_template('index.html')
+                if mongo.db.Libros.find_one({'titulo': nombre_nuevo}): 
+                    flash('Titulo de libro duplicado. Ingrese un nombre diferente', 'error')
                     return render_template('index.html')
                 mongo.db.Libros.update_one({'titulo': nombre_libro}, {'$set': {'titulo': nombre_nuevo}})
                 flash('libro actualizado correctamente', 'success')
@@ -91,6 +113,12 @@ def gestionar_datos():
                 if not all([isbn, año, idioma]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
+                if not re.match(r'^[0-9]+$', año):
+                    flash('Año debe ser un número', 'error')
+                    return render_template('index.html')
+                if not re.match(r'^[a-zA-Z\s]+$', idioma):
+                    flash('Idioma solo puede contener letras y espacios', 'error')
+                    return render_template('index.html')
                 if mongo.db.Ediciones.find_one({'ISBN': isbn}):
                     flash('ISBN de edición duplicado. Ingrese un ISBN diferente', 'error')
                     return render_template('index.html')
@@ -104,7 +132,19 @@ def gestionar_datos():
                 idioma_nuevo = request.form['idioma_nuevo']
                 if not all([isbn, isbn_nuevo, año_nuevo, idioma_nuevo]):
                     flash('Todos los campos son requeridos', 'error')
-                    return render_template('index.html') 
+                    return render_template('index.html')
+                if not re.match(r'^[0-9]+$', año_nuevo):
+                    flash('Año debe ser un número', 'error')
+                    return render_template('index.html')
+                if not re.match(r'^[a-zA-Z\s]+$', idioma_nuevo):
+                    flash('Idioma solo puede contener letras y espacios', 'error')
+                    return render_template('index.html')
+                if not mongo.db.Ediciones.find_one({'ISBN': isbn}):
+                    flash('Ese ISBN no existe', 'error')
+                    return render_template('index.html')
+                if mongo.db.Ediciones.find_one({'ISBN': isbn_nuevo}):
+                    flash('ISBN de edición duplicado. Ingrese un ISBN diferente', 'error')
+                    return render_template('index.html')
                 mongo.db.Ediciones.update_one({'ISBN': isbn}, {'$set': {'idioma': idioma_nuevo}})
                 flash('Edición actualizada correctamente', 'success')
             elif operacion == 'borrar': 
@@ -123,19 +163,18 @@ def gestionar_datos():
                     ISBN = request.form['ISBN']
                     numero_copia = request.form['numero_copia']
                     disponible = 'Si' if request.form.get('disponible', 'off') == 'on' else 'No'
-
                     if not all([ISBN, numero_copia]):
                         flash('Todos los campos son requeridos', 'error')
-                        return render_template('index.html')
-                    
+                        return render_template('index.html')                   
                     if not mongo.db.Ediciones.find_one({'ISBN': ISBN}):
                         flash('Ese ISBN no existe', 'error')
-                        return render_template('index.html')
-                    
+                        return render_template('index.html')                   
                     if mongo.db.Copias.find_one({'ISBN': ISBN, 'numero': numero_copia}):
                         flash('Esa copia ya existe', 'error')
                         return render_template('index.html')
-
+                    if not re.match(r'^[0-9]+$', numero_copia):
+                        flash('Número de copia debe ser un número', 'error')
+                        return render_template('index.html')
                     mongo.db.Copias.insert_one({'ISBN': ISBN, 'numero': numero_copia, 'disponible': disponible})
                     flash('Copia insertada correctamente', 'success')
                     
@@ -147,9 +186,12 @@ def gestionar_datos():
                     if not all([ISBN, numero_copia]):
                         flash('ISBN y numero de copia son requeridos', 'error')
                         return render_template('index.html')
+                    if not re.match(r'^[0-9]+$', numero_copia): 
+                        flash('Número de copia debe ser un número', 'error')
+                        return render_template('index.html')
                     
                     if not mongo.db.Copias.find_one({'ISBN': ISBN , 'numero': numero_copia}):
-                        flash('Ese ISBN no existe', 'error')
+                        flash('Esa copia no existe', 'error')
                         return render_template('index.html')
 
                     # Actualizar la disponibilidad de la copia en la colección Copias
@@ -162,11 +204,12 @@ def gestionar_datos():
                     if not all([ISBN, numero_copia]):
                         flash('Todos los campos son requeridos', 'error')
                         return render_template('index.html')
-
                     if not mongo.db.Copias.find_one({'ISBN ': ISBN, 'numero': numero_copia}): 
                         flash('Esa copia no existe', 'error')
                         return render_template('index.html')
-
+                    if mongo.db.Prestamos.find_one({'ISBN': ISBN, 'numero_copia': numero_copia}):
+                        flash('No se puede eliminar la copia porque tiene préstamos asociados', 'error')
+                        return render_template('index.html')
                     # Eliminar la copia de la colección Copias
                     mongo.db.Copias.delete_one({'ISBN': ISBN, 'numero': numero_copia})
                     flash('Copia eliminada correctamente', 'success')
@@ -180,6 +223,12 @@ def gestionar_datos():
                     if not all([RUT, nombre]):
                         flash('Todos los campos son requeridos', 'error')
                         return render_template('index.html')
+                    if mongo.db.Usuarios.find_one({'RUT': RUT}): 
+                        flash('Ese RUT ya existe', 'error')
+                        return render_template('index.html')
+                    if not re.match(r'^[a-zA-Z\s]+$', nombre):
+                        flash('Nombre solo puede contener letras y espacios', 'error')
+                        return render_template('index.html')
 
                     mongo.db.Usuarios.insert_one({'RUT': RUT, 'nombre': nombre})
                     flash('Usuario insertado correctamente', 'success')
@@ -191,7 +240,15 @@ def gestionar_datos():
                     if not all([RUT, nombre_nuevo]):
                         flash('Todos los campos son requeridos', 'error')
                         return render_template('index.html')    
-
+                    if not mongo.db.Usuarios.find_one({'RUT': RUT}): 
+                        flash('Ese RUT no existe', 'error')
+                        return render_template('index.html')
+                    if not re.match(r'^[a-zA-Z\s]+$', nombre_nuevo):
+                        flash('Nombre solo puede contener letras y espacios', 'error')
+                        return render_template('index.html')
+                    if mongo.db.Prestamos.find_one({'RUT': RUT}):
+                        flash('No se puede actualizar el usuario porque tiene préstamos asociados', 'error')
+                        return render_template('index.html')
                     # Actualizar la disponibilidad de la copia en la colección Copias
                     mongo.db.Usuarios.update_one({'RUT': RUT}, {'$set': {'nombre': nombre_nuevo}})
                     flash('Usuario actualizado correctamente', 'success')
@@ -221,11 +278,18 @@ def gestionar_datos():
                 if not all([RUT, ISBN, numero_copia, fecha_prestamo, fecha_devolucion]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-                
+                if not re.match(r'^[0-9]+$', numero_copia):
+                    flash('Número de copia debe ser un número', 'error')
+                    return render_template('index.html')
+                if not re.match(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$', fecha_prestamo):
+                    flash('Formato de fecha de préstamo incorrecto', 'error')
+                    return render_template('index.html')
+                if not re.match(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$', fecha_devolucion):
+                    flash('Formato de fecha de devolución incorrecto', 'error')
+                    return render_template('index.html')               
                 if not mongo.db.Usuarios.find_one({'RUT': RUT}):
                     flash('Ese RUT no existe', 'error')
-                    return render_template('index.html')
-                
+                    return render_template('index.html')           
                 if not mongo.db.Copias.find_one({'ISBN': ISBN, 'numero': numero_copia}): 
                     flash('Esa copia no existe', 'error')
                     return render_template('index.html')
@@ -259,6 +323,15 @@ def gestionar_datos():
                 if not all([RUT, ISBN, numero_copia_nuevo, fecha_prestamo_nuevo, fecha_devolucion_nuevo]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
+                if not re.match(r'^[0-9]+$', numero_copia_nuevo):
+                    flash('Número de copia debe ser un número', 'error')
+                    return render_template('index.html')
+                if not re.match(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$', fecha_prestamo_nuevo):
+                    flash('Formato de fecha de préstamo incorrecto', 'error')
+                    return render_template('index.html')
+                if not re.match(r'^[0-9]{4}-[0-9]{2}-[0-9]{2}$', fecha_devolucion_nuevo):
+                    flash('Formato de fecha de devolución incorrecto', 'error')
+                    return render_template('index.html')
                 
                 if not mongo.db.Prestamos.find_one({'RUT': RUT, 'ISBN': ISBN, 'numero_copia': numero_copia_nuevo}):
                     flash('Ese préstamo no existe', 'error')
@@ -278,6 +351,9 @@ def gestionar_datos():
                 if not all([RUT, ISBN, numero_copia]):  
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
+                if not re.match(r'^[0-9]+$', numero_copia):
+                    flash('Número de copia debe ser un número', 'error')
+                    return render_template('index.html')
 
                 if not mongo.db.Prestamos.find_one({'RUT': RUT, 'ISBN': ISBN, 'numero_copia': numero_copia}):
                     flash('Ese préstamo no existe', 'error')
@@ -294,13 +370,18 @@ def gestionar_datos():
                 if not all([nombre_autor, nombre_libro]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
+                if not re.match(r'^[a-zA-Z\s]+$', nombre_autor):
+                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    return render_template('index.html')
                 if not mongo.db.Autor.find_one({'nombre': nombre_autor}):
                     flash('Autor no existe', 'error')
                     return render_template('index.html')
                 if not mongo.db.Libros.find_one({'titulo': nombre_libro}):
                     flash('Libro no existe', 'error')
                     return render_template('index.html')
-                
+                if mongo.db.Autores.find_one({'nombre del autor': nombre_autor, 'nombre del libro': nombre_libro}):
+                    flash('Ese autor y libro ya existe', 'error')
+                    return render_template('index.html')
                 mongo.db.Autores.insert_one({'nombre del autor': nombre_autor, 'nombre del libro': nombre_libro})
                 flash('Autor y libro insertado correctamente', 'success')
             elif operacion == 'actualizar':
@@ -312,7 +393,15 @@ def gestionar_datos():
                 if not all([nombre_autor, nombre_libro, nombre_nuevo_a, nombre_nuevo]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-
+                if not re.match(r'^[a-zA-Z\s]+$', nombre_autor):
+                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    return render_template('index.html')
+                if not mongo.db.Autores.find_one({'nombre del autor': nombre_autor, 'nombre del libro': nombre_libro}):
+                    flash('Ese autor y libro no existe', 'error')
+                    return render_template('index.html')
+                if mongo.db.Autores.find_one({'nombre del autor': nombre_nuevo_a, 'nombre del libro': nombre_nuevo}): 
+                    flash('Ese autor y libro ya existe', 'error')
+                    return render_template('index.html')
                 mongo.db.Autores.update_one({'nombre del autor': nombre_autor,'nombre del libro': nombre_libro}, {'$set': {'nombre del autor': nombre_nuevo_a, 'nombre del libro': nombre_nuevo}})
                 flash('Autor y libro actualizado correctamente', 'success')
             elif operacion == 'borrar':
@@ -322,7 +411,9 @@ def gestionar_datos():
                 if not all([nombre_autor, nombre_libro]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-                
+                if not re.match(r'^[a-zA-Z\s]+$', nombre_autor):
+                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    return render_template('index.html')
                 if not mongo.db.Autores.find_one({'nombre del autor': nombre_autor, 'nombre del libro': nombre_libro}): 
                     flash('Ese autor y libro no existe', 'error')
                     return render_template('index.html')
@@ -338,7 +429,7 @@ def gestionar_datos():
                 if not all([nombre_libro, ISBN]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-                
+
                 if not mongo.db.Libros.find_one({'titulo': nombre_libro}):
                     flash('Ese libro no existe', 'error')
                     return render_template('index.html')
@@ -346,7 +437,11 @@ def gestionar_datos():
                 if not mongo.db.Ediciones.find_one({'ISBN': ISBN}):
                     flash('Ese ISBN no existe', 'error')
                     return render_template('index.html')
-
+                
+                if mongo.db.Tiene.find_one({'nombre del libro': nombre_libro, 'ISBN': ISBN}): 
+                    flash('Ese libro e ISBN ya existe', 'error')
+                    return render_template('index.html')
+                
                 mongo.db.Tiene.insert_one({'nombre del libro': nombre_libro, 'ISBN': ISBN})
                 flash('Libro e ISBN insertado correctamente', 'success')
             elif operacion == 'actualizar':
@@ -354,19 +449,18 @@ def gestionar_datos():
                 ISBN = request.form['ISBN']
                 nombre_nuevo = request.form['titulo_nuevo']
                 ISBN_nuevo = request.form['ISBN_nuevo']
-
                 if not all([nombre_libro, ISBN, nombre_nuevo, ISBN_nuevo]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-
                 if not mongo.db.Libros.find_one({'titulo': nombre_libro}):
                     flash('Ese libro no existe', 'error')
                     return render_template('index.html')
-
                 if not mongo.db.Ediciones.find_one({'ISBN': ISBN}):
                     flash('Ese ISBN no existe', 'error')
+                    return render_template('index.html')               
+                if mongo.db.Tiene.find_one({'nombre del libro': nombre_nuevo, 'ISBN': ISBN_nuevo}):
+                    flash('Ese libro e ISBN ya existe', 'error')
                     return render_template('index.html')
-                
                 mongo.db.Tiene.update_one({'nombre del libro': nombre_libro, 'ISBN': ISBN}, {'$set': {'nombre del libro': nombre_nuevo, 'ISBN': ISBN_nuevo}})
                 flash('Libro e ISBN  actualizado correctamente', 'success')
             elif operacion == 'borrar':
