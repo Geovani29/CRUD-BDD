@@ -1,0 +1,555 @@
+use biblioteca
+db.Autor.insertMany([
+    { "nombre": "Isabel Allende" },
+    { "nombre": "Haruki Murakami" },
+    { "nombre": "Margaret Atwood" },
+    { "nombre": "Julio Cortázar" },
+    { "nombre": "Agatha Christie" },
+    { "nombre": "Ernest Hemingway" },
+    { "nombre": "Virginia Woolf" },
+    { "nombre": "Franz Kafka" },
+    { "nombre": "Jane Austen" },
+    { "nombre": "Gabriel García Márquez" },
+    { "nombre": "J.K. Rowling" },
+    { "nombre": "Stephen King" },
+    { "nombre": "Milan Kundera" },
+    { "nombre": "Mario Vargas Llosa" },
+    { "nombre": "Gabriel Mistral" }
+])
+db.Libros.insertMany([
+    // Isabel Allende
+    { "titulo": "La casa de los espíritus" },
+    { "titulo": "De amor y de sombra" },
+    { "titulo": "Eva Luna" },
+    // Haruki Murakami
+    { "titulo": "Tokio Blues" },
+    { "titulo": "Kafka en la orilla" },
+    { "titulo": "1Q84" },
+    // Margaret Atwood
+    { "titulo": "El cuento de la criada" },
+    { "titulo": "Oryx y Crake" },
+    { "titulo": "Alias Grace" },
+    // Julio Cortázar
+    { "titulo": "Rayuela" },
+    { "titulo": "Historias de cronopios y de famas" },
+    { "titulo": "Bestiario" },
+    // Agatha Christie
+    { "titulo": "Asesinato en el Orient Express" },
+    { "titulo": "Diez negritos" },
+    { "titulo": "El misterioso caso de Styles" },
+    // Ernest Hemingway
+    { "titulo": "El viejo y el mar" },
+    { "titulo": "Por quién doblan las campanas" },
+    { "titulo": "Fiesta" },
+    // Virginia Woolf
+    { "titulo": "La señora Dalloway" },
+    { "titulo": "Al faro" },
+    { "titulo": "Orlando" },
+    // Franz Kafka
+    { "titulo": "La metamorfosis" },
+    { "titulo": "El proceso" },
+    { "titulo": "El castillo" },
+    // Jane Austen
+    { "titulo": "Orgullo y prejuicio" },
+    { "titulo": "Sentido y sensibilidad" },
+    { "titulo": "Emma" },
+    // Gabriel García Márquez
+    { "titulo": "Cien años de soledad" },
+    { "titulo": "El amor en los tiempos del cólera" },
+    { "titulo": "Crónica de una muerte anunciada" },
+    // J.K. Rowling
+    { "titulo": "Harry Potter y la piedra filosofal" },
+    { "titulo": "Harry Potter y la cámara secreta" },
+    { "titulo": "Harry Potter y el prisionero de Azkaban" },
+    // Stephen King
+    { "titulo": "El resplandor" },
+    { "titulo": "It" },
+    { "titulo": "Cementerio de animales" },
+    // Milan Kundera
+    { "titulo": "La insoportable levedad del ser" },
+    { "titulo": "La broma" },
+    { "titulo": "La inmortalidad" },
+    // Mario Vargas Llosa
+    { "titulo": "La ciudad y los perros" },
+    { "titulo": "La fiesta del chivo" },
+    { "titulo": "Travesuras de la niña mala" },
+    // Gabriel Mistral
+    { "titulo": "Desolación" },
+    { "titulo": "Ternura" },
+    { "titulo": "Lagar" }
+])
+db.Autores.insertMany([
+    // Isabel Allende
+    { "nombre del autor": "Isabel Allende", "nombre del libro": "La casa de los espíritus" },
+    { "nombre del autor": "Isabel Allende", "nombre del libro": "De amor y de sombra" },
+    { "nombre del autor": "Isabel Allende", "nombre del libro": "Eva Luna" },
+    // Haruki Murakami
+    { "nombre del autor": "Haruki Murakami", "nombre del libro": "Tokio Blues" },
+    { "nombre del autor": "Haruki Murakami", "nombre del libro": "Kafka en la orilla" },
+    { "nombre del autor": "Haruki Murakami", "nombre del libro": "1Q84" },
+    // Margaret Atwood
+    { "nombre del autor": "Margaret Atwood", "nombre del libro": "El cuento de la criada" },
+    { "nombre del autor": "Margaret Atwood", "nombre del libro": "Oryx y Crake" },
+    { "nombre del autor": "Margaret Atwood", "nombre del libro": "Alias Grace" },
+    // Julio Cortázar
+    { "nombre del autor": "Julio Cortázar", "nombre del libro": "Rayuela" },
+    { "nombre del autor": "Julio Cortázar", "nombre del libro": "Historias de cronopios y de famas" },
+    { "nombre del autor": "Julio Cortázar", "nombre del libro": "Bestiario" },
+    // Agatha Christie
+    { "nombre del autor": "Agatha Christie", "nombre del libro": "Asesinato en el Orient Express" },
+    { "nombre del autor": "Agatha Christie", "nombre del libro": "Diez negritos" },
+    { "nombre del autor": "Agatha Christie", "nombre del libro": "El misterioso caso de Styles" },
+    // Ernest Hemingway
+    { "nombre del autor": "Ernest Hemingway", "nombre del libro": "El viejo y el mar" },
+    { "nombre del autor": "Ernest Hemingway", "nombre del libro": "Por quién doblan las campanas" },
+    { "nombre del autor": "Ernest Hemingway", "nombre del libro": "Fiesta" },
+    // Virginia Woolf
+    { "nombre del autor": "Virginia Woolf", "nombre del libro": "La señora Dalloway" },
+    { "nombre del autor": "Virginia Woolf", "nombre del libro": "Al faro" },
+    { "nombre del autor": "Virginia Woolf", "nombre del libro": "Orlando" },
+    // Franz Kafka
+    { "nombre del autor": "Franz Kafka", "nombre del libro": "La metamorfosis" },
+    { "nombre del autor": "Franz Kafka", "nombre del libro": "El proceso" },
+    { "nombre del autor": "Franz Kafka", "nombre del libro": "El castillo" },
+    // Jane Austen
+    { "nombre del autor": "Jane Austen", "nombre del libro": "Orgullo y prejuicio" },
+    { "nombre del autor": "Jane Austen", "nombre del libro": "Sentido y sensibilidad" },
+    { "nombre del autor": "Jane Austen", "nombre del libro": "Emma" },
+    // Gabriel García Márquez
+    { "nombre del autor": "Gabriel García Márquez", "nombre del libro": "Cien años de soledad" },
+    { "nombre del autor": "Gabriel García Márquez", "nombre del libro": "El amor en los tiempos del cólera" },
+    { "nombre del autor": "Gabriel García Márquez", "nombre del libro": "Crónica de una muerte anunciada" },
+    // J.K. Rowling
+    { "nombre del autor": "J.K. Rowling", "nombre del libro": "Harry Potter y la piedra filosofal" },
+    { "nombre del autor": "J.K. Rowling", "nombre del libro": "Harry Potter y la cámara secreta" },
+    { "nombre del autor": "J.K. Rowling", "nombre del libro": "Harry Potter y el prisionero de Azkaban" },
+    // Stephen King
+    { "nombre del autor": "Stephen King", "nombre del libro": "El resplandor" },
+    { "nombre del autor": "Stephen King", "nombre del libro": "It" },
+    { "nombre del autor": "Stephen King", "nombre del libro": "Cementerio de animales" },
+	// Milan Kundera
+    { "nombre del autor": "Milan Kundera", "nombre del libro": "La insoportable levedad del ser" },
+    { "nombre del autor": "Milan Kundera", "nombre del libro": "La broma" },
+    { "nombre del autor": "Milan Kundera", "nombre del libro": "La inmortalidad" },
+    // Mario Vargas Llosa
+    { "nombre del autor": "Mario Vargas Llosa", "nombre del libro": "La ciudad y los perros" },
+    { "nombre del autor": "Mario Vargas Llosa", "nombre del libro": "La fiesta del chivo" },
+    { "nombre del autor": "Mario Vargas Llosa", "nombre del libro": "Travesuras de la niña mala" },
+    // Gabriel Mistral
+    { "nombre del autor": "Gabriel Mistral", "nombre del libro": "Desolación" },
+    { "nombre del autor": "Gabriel Mistral", "nombre del libro": "Ternura" },
+    { "nombre del autor": "Gabriel Mistral", "nombre del libro": "Lagar" }
+])
+db.Ediciones.insertMany([
+    // Isabel Allende
+    { "ISBN": "9788446021446", "año": 1982, "idioma": "Español" }, // La casa de los espíritus
+    { "ISBN": "9788446022917", "año": 1984, "idioma": "Español" }, // De amor y de sombra
+    { "ISBN": "9788446025970", "año": 1987, "idioma": "Español" }, // Eva Luna
+    // Haruki Murakami
+    { "ISBN": "9784167315436", "año": 1987, "idioma": "Japonés" }, // Tokio Blues
+    { "ISBN": "9788483065281", "año": 2002, "idioma": "Español" }, // Kafka en la orilla
+    { "ISBN": "9788498381573", "año": 2009, "idioma": "Español" }, // 1Q84
+    // Margaret Atwood
+    { "ISBN": "9788483836113", "año": 1985, "idioma": "Español" }, // El cuento de la criada
+    { "ISBN": "9788432201316", "año": 2007, "idioma": "Español" }, // Oryx y Crake
+    { "ISBN": "9788466603293", "año": 2000, "idioma": "Español" }, // Alias Grace
+    // Julio Cortázar
+    { "ISBN": "9788437615677", "año": 1963, "idioma": "Español" }, // Rayuela
+    { "ISBN": "9788437617749", "año": 1967, "idioma": "Español" }, // Historias de cronopios y de famas
+    { "ISBN": "9788437617756", "año": 1951, "idioma": "Español" }, // Bestiario
+    // Agatha Christie
+    { "ISBN": "9788497593265", "año": 1934, "idioma": "Inglés" }, // Asesinato en el Orient Express
+    { "ISBN": "9788497593395", "año": 1939, "idioma": "Inglés" }, // Diez negritos
+    { "ISBN": "9788467002389", "año": 1920, "idioma": "Inglés" }, // El misterioso caso de Styles
+    // Ernest Hemingway
+    { "ISBN": "9788437603780", "año": 1952, "idioma": "Español" }, // El viejo y el mar
+    { "ISBN": "9788433917383", "año": 1940, "idioma": "Español" }, // Por quién doblan las campanas
+    { "ISBN": "9788497590202", "año": 1926, "idioma": "Inglés" }, // Fiesta
+    // Virginia Woolf
+    { "ISBN": "9788491047625", "año": 1925, "idioma": "Inglés" }, // La señora Dalloway
+    { "ISBN": "9788491047632", "año": 1927, "idioma": "Inglés" }, // Al faro
+    { "ISBN": "9788491047649", "año": 1928, "idioma": "Inglés" }, // Orlando
+    // Franz Kafka
+    { "ISBN": "9788432272013", "año": 1915, "idioma": "Alemán" }, // La metamorfosis
+    { "ISBN": "9788493507155", "año": 1925, "idioma": "Alemán" }, // El proceso
+    { "ISBN": "9788420672410", "año": 1926, "idioma": "Alemán" }, // El castillo
+    // Jane Austen
+    { "ISBN": "9788416320141", "año": 1813, "idioma": "Inglés" }, // Orgullo y prejuicio
+    { "ISBN": "9788493989257", "año": 1811, "idioma": "Inglés" }, // Sentido y sensibilidad
+    { "ISBN": "9788416004563", "año": 1815, "idioma": "Inglés" }, // Emma
+    // Gabriel García Márquez
+    { "ISBN": "9788437603780", "año": 1967, "idioma": "Español" }, // Cien años de soledad
+    { "ISBN": "9788496567175", "año": 1985, "idioma": "Español" }, // El amor en los tiempos del cólera
+    { "ISBN": "9788449330824", "año": 1981, "idioma": "Español" }, // Crónica de una muerte anunciada
+    // J.K. Rowling
+    { "ISBN": "9788498381573", "año": 1997, "idioma": "Inglés" }, // Harry Potter y la piedra filosofal
+    { "ISBN": "9788498381580", "año": 1998, "idioma": "Inglés" }, // Harry Potter y la cámara secreta
+    { "ISBN": "9788498381597", "año": 1999, "idioma": "Inglés" }, // Harry Potter y el prisionero de Azkaban
+    // Stephen King
+    { "ISBN": "9788490701826", "año": 1977, "idioma": "Inglés" }, // El resplandor
+    { "ISBN": "9788466616941", "año": 1986, "idioma": "Inglés" }, // It
+    { "ISBN": "9788439720503", "año": 1983, "idioma": "Inglés" }, // Cementerio de animales
+    // Milan Kundera
+    { "ISBN": "9788483065281", "año": 1984, "idioma": "Checo" }, // La insoportable levedad del ser
+    { "ISBN": "9788433926828", "año": 1967, "idioma": "Checo" }, // La broma
+    { "ISBN": "9788439723825", "año": 1990, "idioma": "Checo" }, // La inmortalidad
+    // Mario Vargas Llosa
+    { "ISBN": "9788432200876", "año": 1963, "idioma": "Español" }, // La ciudad y los perros
+    { "ISBN": "9788432202719", "año": 2000, "idioma": "Español" }, // La fiesta del chivo
+    { "ISBN": "9788433974806", "año": 2006, "idioma": "Español" }, // Travesuras de la niña mala
+    // Gabriel Mistral
+    { "ISBN": "9788420600000", "año": 1922, "idioma": "Español" }, // Desolación
+    { "ISBN": "9788432205161", "año": 1924, "idioma": "Español" }, // Ternura
+    { "ISBN": "9788432217850", "año": 1934, "idioma": "Español" }  // Lagar
+])
+
+db.Tiene.insertMany([
+    // Isabel Allende
+    { "nombre del libro": "La casa de los espíritus", "ISBN": "9788446021446" },
+    { "nombre del libro": "De amor y de sombra", "ISBN": "9788446022917" },
+    { "nombre del libro": "Eva Luna", "ISBN": "9788446025970" },
+    // Haruki Murakami
+    { "nombre del libro": "Tokio Blues", "ISBN": "9784167315436" },
+    { "nombre del libro": "Kafka en la orilla", "ISBN": "9788483065281" },
+    { "nombre del libro": "1Q84", "ISBN": "9788498381573" },
+    // Margaret Atwood
+    { "nombre del libro": "El cuento de la criada", "ISBN": "9788483836113" },
+    { "nombre del libro": "Oryx y Crake", "ISBN": "9788432201316" },
+    { "nombre del libro": "Alias Grace", "ISBN": "9788466603293" },
+    // Julio Cortázar
+    { "nombre del libro": "Rayuela", "ISBN": "9788437615677" },
+    { "nombre del libro": "Historias de cronopios y de famas", "ISBN": "9788437617749" },
+    { "nombre del libro": "Bestiario", "ISBN": "9788437617756" },
+    // Agatha Christie
+    { "nombre del libro": "Asesinato en el Orient Express", "ISBN": "9788497593265" },
+    { "nombre del libro": "Diez negritos", "ISBN": "9788497593395" },
+    { "nombre del libro": "El misterioso caso de Styles", "ISBN": "9788467002389" },
+    // Ernest Hemingway
+    { "nombre del libro": "El viejo y el mar", "ISBN": "9788437603780" },
+    { "nombre del libro": "Por quién doblan las campanas", "ISBN": "9788433917383" },
+    { "nombre del libro": "Fiesta", "ISBN": "9788497590202" },
+    // Virginia Woolf
+    { "nombre del libro": "La señora Dalloway", "ISBN": "9788491047625" },
+    { "nombre del libro": "Al faro", "ISBN": "9788491047632" },
+    { "nombre del libro": "Orlando", "ISBN": "9788491047649" },
+    // Franz Kafka
+    { "nombre del libro": "La metamorfosis", "ISBN": "9788432272013" },
+    { "nombre del libro": "El proceso", "ISBN": "9788493507155" },
+    { "nombre del libro": "El castillo", "ISBN": "9788420672410" },
+    // Jane Austen
+    { "nombre del libro": "Orgullo y prejuicio", "ISBN": "9788416320141" },
+    { "nombre del libro": "Sentido y sensibilidad", "ISBN": "9788493989257" },
+    { "nombre del libro": "Emma", "ISBN": "9788416004563" },
+    // Gabriel García Márquez
+    { "nombre del libro": "Cien años de soledad", "ISBN": "9788437603780" },
+    { "nombre del libro": "El amor en los tiempos del cólera", "ISBN": "9788496567175" },
+    { "nombre del libro": "Crónica de una muerte anunciada", "ISBN": "9788449330824" },
+    // J.K. Rowling
+    { "nombre del libro": "Harry Potter y la piedra filosofal", "ISBN": "9788498381573" },
+    { "nombre del libro": "Harry Potter y la cámara secreta", "ISBN": "9788498381580" },
+    { "nombre del libro": "Harry Potter y el prisionero de Azkaban", "ISBN": "9788498381597" },
+    // Stephen King
+    { "nombre del libro": "El resplandor", "ISBN": "9788490701826" },
+    { "nombre del libro": "It", "ISBN": "9788466616941" },
+    { "nombre del libro": "Cementerio de animales", "ISBN": "9788439720503" },
+    // Milan Kundera
+    { "nombre del libro": "La insoportable levedad del ser", "ISBN": "9788483065281" },
+    { "nombre del libro": "La broma", "ISBN": "9788433926828" },
+    { "nombre del libro": "La inmortalidad", "ISBN": "9788439723825" },
+    // Mario Vargas Llosa
+    { "nombre del libro": "La ciudad y los perros", "ISBN": "9788432200876" },
+    { "nombre del libro": "La fiesta del chivo", "ISBN": "9788432202719" },
+    { "nombre del libro": "Travesuras de la niña mala", "ISBN": "9788433974806" },
+    // Gabriel Mistral
+    { "nombre del libro": "Desolación", "ISBN": "9788420600000" },
+    { "nombre del libro": "Ternura", "ISBN": "9788432205161" },
+    { "nombre del libro": "Lagar", "ISBN": "9788432217850" }
+])
+db.Copias.insertMany([
+    {'ISBN': '9788446021446', 'numero': 59, 'disponible': 'si'},
+    {'ISBN': '9788446021446', 'numero': 86, 'disponible': 'no'},
+    {'ISBN': '9788446021446', 'numero': 19, 'disponible': 'si'},
+    {'ISBN': '9788446021446', 'numero': 76, 'disponible': 'si'},
+    {'ISBN': '9788446022917', 'numero': 11, 'disponible': 'no'},
+    {'ISBN': '9788446022917', 'numero': 54, 'disponible': 'si'},
+    {'ISBN': '9788446022917', 'numero': 47, 'disponible': 'si'},
+    {'ISBN': '9788446022917', 'numero': 40, 'disponible': 'no'},
+    {'ISBN': '9788446025970', 'numero': 43, 'disponible': 'si'},
+    {'ISBN': '9788446025970', 'numero': 75, 'disponible': 'si'},
+    {'ISBN': '9788446025970', 'numero': 4, 'disponible': 'no'},
+    {'ISBN': '9788446025970', 'numero': 75, 'disponible': 'si'},
+    {'ISBN': '9784167315436', 'numero': 53, 'disponible': 'no'},
+    {'ISBN': '9784167315436', 'numero': 94, 'disponible': 'si'},
+    {'ISBN': '9784167315436', 'numero': 89, 'disponible': 'no'},
+    {'ISBN': '9784167315436', 'numero': 22, 'disponible': 'no'},
+    {'ISBN': '9788483065281', 'numero': 84, 'disponible': 'si'},
+    {'ISBN': '9788483065281', 'numero': 26, 'disponible': 'no'},
+    {'ISBN': '9788483065281', 'numero': 70, 'disponible': 'si'},
+    {'ISBN': '9788483065281', 'numero': 57, 'disponible': 'no'},
+    {'ISBN': '9788498381573', 'numero': 77, 'disponible': 'no'},
+    {'ISBN': '9788498381573', 'numero': 1, 'disponible': 'si'},
+    {'ISBN': '9788498381573', 'numero': 65, 'disponible': 'no'},
+    {'ISBN': '9788498381573', 'numero': 26, 'disponible': 'si'},
+    {'ISBN': '9788483836113', 'numero': 55, 'disponible': 'no'},
+    {'ISBN': '9788483836113', 'numero': 89, 'disponible': 'no'},
+    {'ISBN': '9788483836113', 'numero': 12, 'disponible': 'no'},
+    {'ISBN': '9788483836113', 'numero': 60, 'disponible': 'no'},
+    {'ISBN': '9788432201316', 'numero': 15, 'disponible': 'si'},
+    {'ISBN': '9788432201316', 'numero': 56, 'disponible': 'si'},
+    {'ISBN': '9788432201316', 'numero': 74, 'disponible': 'si'},
+    {'ISBN': '9788432201316', 'numero': 86, 'disponible': 'si'},
+    {'ISBN': '9788466603293', 'numero': 33, 'disponible': 'no'},
+    {'ISBN': '9788466603293', 'numero': 99, 'disponible': 'si'},
+    {'ISBN': '9788466603293', 'numero': 62, 'disponible': 'si'},
+    {'ISBN': '9788466603293', 'numero': 50, 'disponible': 'no'},
+    {'ISBN': '9788437615677', 'numero': 99, 'disponible': 'no'},
+    {'ISBN': '9788437615677', 'numero': 73, 'disponible': 'no'},
+    {'ISBN': '9788437615677', 'numero': 11, 'disponible': 'no'},
+    {'ISBN': '9788437615677', 'numero': 87, 'disponible': 'no'},
+    {'ISBN': '9788437617749', 'numero': 71, 'disponible': 'si'},
+    {'ISBN': '9788437617749', 'numero': 94, 'disponible': 'si'},
+    {'ISBN': '9788437617749', 'numero': 90, 'disponible': 'no'},
+    {'ISBN': '9788437617749', 'numero': 88, 'disponible': 'si'},
+    {'ISBN': '9788437617756', 'numero': 2, 'disponible': 'no'},
+    {'ISBN': '9788437617756', 'numero': 47, 'disponible': 'si'},
+    {'ISBN': '9788437617756', 'numero': 23, 'disponible': 'si'},
+    {'ISBN': '9788437617756', 'numero': 37, 'disponible': 'si'},
+    {'ISBN': '9788497593265', 'numero': 61, 'disponible': 'si'},
+    {'ISBN': '9788497593265', 'numero': 43, 'disponible': 'no'},
+    {'ISBN': '9788497593265', 'numero': 17, 'disponible': 'si'},
+    {'ISBN': '9788497593265', 'numero': 19, 'disponible': 'si'},
+    {'ISBN': '9788497593395', 'numero': 36, 'disponible': 'si'},
+    {'ISBN': '9788497593395', 'numero': 22, 'disponible': 'si'},
+    {'ISBN': '9788497593395', 'numero': 83, 'disponible': 'no'},
+    {'ISBN': '9788497593395', 'numero': 68, 'disponible': 'no'},
+    {'ISBN': '9788467002389', 'numero': 64, 'disponible': 'si'},
+    {'ISBN': '9788467002389', 'numero': 85, 'disponible': 'si'},
+    {'ISBN': '9788467002389', 'numero': 8, 'disponible': 'no'},
+    {'ISBN': '9788467002389', 'numero': 94, 'disponible': 'si'},
+    {'ISBN': '9788437603780', 'numero': 47, 'disponible': 'si'},
+    {'ISBN': '9788437603780', 'numero': 4, 'disponible': 'no'},
+    {'ISBN': '9788437603780', 'numero': 54, 'disponible': 'si'},
+    {'ISBN': '9788437603780', 'numero': 54, 'disponible': 'no'},
+    {'ISBN': '9788433917383', 'numero': 29, 'disponible': 'no'},
+    {'ISBN': '9788433917383', 'numero': 84, 'disponible': 'no'},
+    {'ISBN': '9788433917383', 'numero': 22, 'disponible': 'si'},
+    {'ISBN': '9788433917383', 'numero': 15, 'disponible': 'no'},
+    {'ISBN': '9788497590202', 'numero': 41, 'disponible': 'si'},
+    {'ISBN': '9788497590202', 'numero': 83, 'disponible': 'si'},
+    {'ISBN': '9788497590202', 'numero': 33, 'disponible': 'si'},
+    {'ISBN': '9788497590202', 'numero': 17, 'disponible': 'no'},
+    {'ISBN': '9788491047625', 'numero': 5, 'disponible': 'no'},
+    {'ISBN': '9788491047625', 'numero': 24, 'disponible': 'no'},
+    {'ISBN': '9788491047625', 'numero': 85, 'disponible': 'no'},
+    {'ISBN': '9788491047625', 'numero': 79, 'disponible': 'no'},
+    {'ISBN': '9788491047632', 'numero': 97, 'disponible': 'no'},
+    {'ISBN': '9788491047632', 'numero': 25, 'disponible': 'si'},
+    {'ISBN': '9788491047632', 'numero': 85, 'disponible': 'no'},
+    {'ISBN': '9788491047632', 'numero': 39, 'disponible': 'si'},
+    {'ISBN': '9788491047649', 'numero': 14, 'disponible': 'no'},
+    {'ISBN': '9788491047649', 'numero': 16, 'disponible': 'si'},
+    {'ISBN': '9788491047649', 'numero': 26, 'disponible': 'si'},
+    {'ISBN': '9788491047649', 'numero': 93, 'disponible': 'no'},
+    {'ISBN': '9788432272013', 'numero': 26, 'disponible': 'si'},
+    {'ISBN': '9788432272013', 'numero': 77, 'disponible': 'no'},
+    {'ISBN': '9788432272013', 'numero': 76, 'disponible': 'no'},
+    {'ISBN': '9788432272013', 'numero': 68, 'disponible': 'no'},
+    {'ISBN': '9788493507155', 'numero': 61, 'disponible': 'no'},
+    {'ISBN': '9788493507155', 'numero': 85, 'disponible': 'no'},
+    {'ISBN': '9788493507155', 'numero': 85, 'disponible': 'no'},
+    {'ISBN': '9788493507155', 'numero': 35, 'disponible': 'no'},
+    {'ISBN': '9788420672410', 'numero': 6, 'disponible': 'si'},
+    {'ISBN': '9788420672410', 'numero': 10, 'disponible': 'no'},
+    {'ISBN': '9788420672410', 'numero': 79, 'disponible': 'si'},
+    {'ISBN': '9788420672410', 'numero': 90, 'disponible': 'si'},
+    {'ISBN': '9788416320141', 'numero': 7, 'disponible': 'no'},
+    {'ISBN': '9788416320141', 'numero': 41, 'disponible': 'si'},
+    {'ISBN': '9788416320141', 'numero': 78, 'disponible': 'si'},
+    {'ISBN': '9788416320141', 'numero': 73, 'disponible': 'si'},
+    {'ISBN': '9788493989257', 'numero': 84, 'disponible': 'si'},
+    {'ISBN': '9788493989257', 'numero': 92, 'disponible': 'si'},
+    {'ISBN': '9788493989257', 'numero': 22, 'disponible': 'no'},
+    {'ISBN': '9788493989257', 'numero': 43, 'disponible': 'si'},
+    {'ISBN': '9788416004563', 'numero': 19, 'disponible': 'no'},
+    {'ISBN': '9788416004563', 'numero': 23, 'disponible': 'si'},
+    {'ISBN': '9788416004563', 'numero': 68, 'disponible': 'si'},
+    {'ISBN': '9788416004563', 'numero': 18, 'disponible': 'si'},
+    {'ISBN': '9788437603780', 'numero': 45, 'disponible': 'si'},
+    {'ISBN': '9788437603780', 'numero': 57, 'disponible': 'no'},
+    {'ISBN': '9788437603780', 'numero': 65, 'disponible': 'si'},
+    {'ISBN': '9788437603780', 'numero': 80, 'disponible': 'no'},
+    {'ISBN': '9788496567175', 'numero': 40, 'disponible': 'no'},
+    {'ISBN': '9788496567175', 'numero': 64, 'disponible': 'si'},
+    {'ISBN': '9788496567175', 'numero': 55, 'disponible': 'si'},
+    {'ISBN': '9788496567175', 'numero': 49, 'disponible': 'si'},
+    {'ISBN': '9788449330824', 'numero': 18, 'disponible': 'si'},
+    {'ISBN': '9788449330824', 'numero': 57, 'disponible': 'si'},
+    {'ISBN': '9788449330824', 'numero': 16, 'disponible': 'no'},
+    {'ISBN': '9788449330824', 'numero': 57, 'disponible': 'si'},
+    {'ISBN': '9788498381573', 'numero': 57, 'disponible': 'si'},
+    {'ISBN': '9788498381573', 'numero': 37, 'disponible': 'si'},
+    {'ISBN': '9788498381573', 'numero': 17, 'disponible': 'si'},
+    {'ISBN': '9788498381573', 'numero': 36, 'disponible': 'no'},
+    {'ISBN': '9788498381580', 'numero': 7, 'disponible': 'no'},
+    {'ISBN': '9788498381580', 'numero': 8, 'disponible': 'no'},
+    {'ISBN': '9788498381580', 'numero': 99, 'disponible': 'no'},
+    {'ISBN': '9788498381580', 'numero': 89, 'disponible': 'si'},
+    {'ISBN': '9788498381597', 'numero': 81, 'disponible': 'no'},
+    {'ISBN': '9788498381597', 'numero': 81, 'disponible': 'no'},
+    {'ISBN': '9788498381597', 'numero': 43, 'disponible': 'no'},
+    {'ISBN': '9788498381597', 'numero': 31, 'disponible': 'no'},
+    {'ISBN': '9788490701826', 'numero': 99, 'disponible': 'si'},
+    {'ISBN': '9788490701826', 'numero': 32, 'disponible': 'si'},
+    {'ISBN': '9788490701826', 'numero': 27, 'disponible': 'no'},
+    {'ISBN': '9788490701826', 'numero': 55, 'disponible': 'si'},
+    {'ISBN': '9788466616941', 'numero': 81, 'disponible': 'no'},
+    {'ISBN': '9788466616941', 'numero': 95, 'disponible': 'si'},
+    {'ISBN': '9788466616941', 'numero': 84, 'disponible': 'si'},
+    {'ISBN': '9788466616941', 'numero': 88, 'disponible': 'no'},
+    {'ISBN': '9788439720503', 'numero': 26, 'disponible': 'si'},
+    {'ISBN': '9788439720503', 'numero': 4, 'disponible': 'no'},
+    {'ISBN': '9788439720503', 'numero': 48, 'disponible': 'si'},
+    {'ISBN': '9788439720503', 'numero': 25, 'disponible': 'si'},
+    {'ISBN': '9788483065281', 'numero': 56, 'disponible': 'no'},
+    {'ISBN': '9788483065281', 'numero': 66, 'disponible': 'no'},
+    {'ISBN': '9788483065281', 'numero': 5, 'disponible': 'no'},
+    {'ISBN': '9788483065281', 'numero': 66, 'disponible': 'no'},
+    {'ISBN': '9788433926828', 'numero': 20, 'disponible': 'si'},
+    {'ISBN': '9788433926828', 'numero': 83, 'disponible': 'si'},
+    {'ISBN': '9788433926828', 'numero': 19, 'disponible': 'no'},
+    {'ISBN': '9788433926828', 'numero': 67, 'disponible': 'si'},
+    {'ISBN': '9788439723825', 'numero': 40, 'disponible': 'no'},
+    {'ISBN': '9788439723825', 'numero': 28, 'disponible': 'si'},
+    {'ISBN': '9788439723825', 'numero': 10, 'disponible': 'no'},
+    {'ISBN': '9788439723825', 'numero': 59, 'disponible': 'no'},
+    {'ISBN': '9788432200876', 'numero': 60, 'disponible': 'no'},
+    {'ISBN': '9788432200876', 'numero': 71, 'disponible': 'no'},
+    {'ISBN': '9788432200876', 'numero': 33, 'disponible': 'si'},
+    {'ISBN': '9788432200876', 'numero': 5, 'disponible': 'no'},
+    {'ISBN': '9788432202719', 'numero': 28, 'disponible': 'no'},
+    {'ISBN': '9788432202719', 'numero': 49, 'disponible': 'no'},
+    {'ISBN': '9788432202719', 'numero': 56, 'disponible': 'si'},
+    {'ISBN': '9788432202719', 'numero': 33, 'disponible': 'no'},
+    {'ISBN': '9788433974806', 'numero': 28, 'disponible': 'no'},
+    {'ISBN': '9788433974806', 'numero': 49, 'disponible': 'si'},
+    {'ISBN': '9788433974806', 'numero': 15, 'disponible': 'si'},
+    {'ISBN': '9788433974806', 'numero': 78, 'disponible': 'si'},
+    {'ISBN': '9788420600000', 'numero': 85, 'disponible': 'no'},
+    {'ISBN': '9788420600000', 'numero': 91, 'disponible': 'si'},
+    {'ISBN': '9788420600000', 'numero': 23, 'disponible': 'si'},
+    {'ISBN': '9788420600000', 'numero': 53, 'disponible': 'no'},
+    {'ISBN': '9788432205161', 'numero': 13, 'disponible': 'si'},
+    {'ISBN': '9788432205161', 'numero': 19, 'disponible': 'si'},
+    {'ISBN': '9788432205161', 'numero': 46, 'disponible': 'si'},
+    {'ISBN': '9788432205161', 'numero': 87, 'disponible': 'si'},
+    {'ISBN': '9788432217850', 'numero': 48, 'disponible': 'si'},
+    {'ISBN': '9788432217850', 'numero': 32, 'disponible': 'si'},
+    {'ISBN': '9788432217850', 'numero': 9, 'disponible': 'si'},
+    {'ISBN': '9788432217850', 'numero': 56, 'disponible': 'si'}
+])
+db.Usuarios.insertMany([
+    { "RUT": "1234567890", "nombre": "Juan Pérez" },
+    { "RUT": "9876543211", "nombre": "María González" },
+    { "RUT": "5678901232", "nombre": "Carlos Sánchez" },
+    { "RUT": "3210987653", "nombre": "Ana Martínez" },
+    { "RUT": "9012345674", "nombre": "Pedro López" },
+    { "RUT": "3456789015", "nombre": "Laura Rodríguez" },
+    { "RUT": "7890123456", "nombre": "Diego Hernández" },
+    { "RUT": "2345678907", "nombre": "Sofía Díaz" },
+    { "RUT": "6789012348", "nombre": "Alejandro Ruiz" },
+    { "RUT": "0123456789", "nombre": "Fernanda Torres" },
+    { "RUT": "5432109870", "nombre": "Javier Gómez" },
+    { "RUT": "8901234561", "nombre": "Patricia Ramírez" },
+    { "RUT": "4567890122", "nombre": "Daniel Castro" },
+    { "RUT": "2109876543", "nombre": "Valentina Herrera" },
+    { "RUT": "6543210984", "nombre": "Gabriel Flores" },
+    { "RUT": "0987654325", "nombre": "Camila Álvarez" },
+    { "RUT": "4567890123", "nombre": "Andrés Silva" },
+    { "RUT": "1234567892", "nombre": "Natalia Muñoz" },
+    { "RUT": "7890123451", "nombre": "Ricardo González" },
+    { "RUT": "2345678900", "nombre": "Paula López" }
+])
+db.Prestamos.insertOne( {'RUT': '0123456789', 'ISBN': '9788446021446', 'numero_copia': 86, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-21'} )
+db.Prestamos.insertOne( {'RUT': '7890123451', 'ISBN': '9788446022917', 'numero_copia': 11, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-03'} )
+db.Prestamos.insertOne( {'RUT': '6543210984', 'ISBN': '9788446022917', 'numero_copia': 40, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-16'} )
+db.Prestamos.insertOne( {'RUT': '5678901232', 'ISBN': '9788446025970', 'numero_copia': 4, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-23'} )
+db.Prestamos.insertOne( {'RUT': '6543210984', 'ISBN': '9784167315436', 'numero_copia': 53, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-14'} )
+db.Prestamos.insertOne( {'RUT': '9876543211', 'ISBN': '9784167315436', 'numero_copia': 89, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-01'} )
+db.Prestamos.insertOne( {'RUT': '8901234561', 'ISBN': '9784167315436', 'numero_copia': 22, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-24'} )
+db.Prestamos.insertOne( {'RUT': '9876543211', 'ISBN': '9788483065281', 'numero_copia': 26, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-23'} )
+db.Prestamos.insertOne( {'RUT': '4567890122', 'ISBN': '9788483065281', 'numero_copia': 57, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-31'} )
+db.Prestamos.insertOne( {'RUT': '6543210984', 'ISBN': '9788498381573', 'numero_copia': 77, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-21'} )
+db.Prestamos.insertOne( {'RUT': '7890123456', 'ISBN': '9788498381573', 'numero_copia': 65, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-13'} )
+db.Prestamos.insertOne( {'RUT': '1234567892', 'ISBN': '9788483836113', 'numero_copia': 55, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-02'} )
+db.Prestamos.insertOne( {'RUT': '2345678907', 'ISBN': '9788483836113', 'numero_copia': 89, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-24'} )
+db.Prestamos.insertOne( {'RUT': '9012345674', 'ISBN': '9788483836113', 'numero_copia': 12, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-23'} )
+db.Prestamos.insertOne( {'RUT': '3456789015', 'ISBN': '9788483836113', 'numero_copia': 60, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-22'} )
+db.Prestamos.insertOne( {'RUT': '7890123456', 'ISBN': '9788466603293', 'numero_copia': 33, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-31'} )
+db.Prestamos.insertOne( {'RUT': '7890123451', 'ISBN': '9788466603293', 'numero_copia': 50, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-30'} )
+db.Prestamos.insertOne( {'RUT': '4567890123', 'ISBN': '9788437615677', 'numero_copia': 99, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-01'} )
+db.Prestamos.insertOne( {'RUT': '1234567890', 'ISBN': '9788437615677', 'numero_copia': 73, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-16'} )
+db.Prestamos.insertOne( {'RUT': '4567890122', 'ISBN': '9788437615677', 'numero_copia': 11, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-20'} )
+db.Prestamos.insertOne( {'RUT': '6789012348', 'ISBN': '9788437615677', 'numero_copia': 87, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-12'} )
+db.Prestamos.insertOne( {'RUT': '8901234561', 'ISBN': '9788437617749', 'numero_copia': 90, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-15'} )
+db.Prestamos.insertOne( {'RUT': '7890123451', 'ISBN': '9788437617756', 'numero_copia': 2, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-14'} )
+db.Prestamos.insertOne( {'RUT': '2345678900', 'ISBN': '9788497593265', 'numero_copia': 43, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-19'} )
+db.Prestamos.insertOne( {'RUT': '3456789015', 'ISBN': '9788497593395', 'numero_copia': 83, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-13'} )
+db.Prestamos.insertOne( {'RUT': '9876543211', 'ISBN': '9788497593395', 'numero_copia': 68, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-25'} )
+db.Prestamos.insertOne( {'RUT': '4567890123', 'ISBN': '9788467002389', 'numero_copia': 8, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-12'} )
+db.Prestamos.insertOne( {'RUT': '3210987653', 'ISBN': '9788437603780', 'numero_copia': 4, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-17'} )
+db.Prestamos.insertOne( {'RUT': '2109876543', 'ISBN': '9788437603780', 'numero_copia': 54, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-26'} )
+db.Prestamos.insertOne( {'RUT': '3456789015', 'ISBN': '9788433917383', 'numero_copia': 29, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-14'} )
+db.Prestamos.insertOne( {'RUT': '1234567892', 'ISBN': '9788433917383', 'numero_copia': 84, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-01'} )
+db.Prestamos.insertOne( {'RUT': '1234567890', 'ISBN': '9788433917383', 'numero_copia': 15, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-24'} )
+db.Prestamos.insertOne( {'RUT': '2345678900', 'ISBN': '9788497590202', 'numero_copia': 17, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-04'} )
+db.Prestamos.insertOne( {'RUT': '6789012348', 'ISBN': '9788491047625', 'numero_copia': 5, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-18'} )
+db.Prestamos.insertOne( {'RUT': '9876543211', 'ISBN': '9788491047625', 'numero_copia': 24, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-03'} )
+db.Prestamos.insertOne( {'RUT': '7890123456', 'ISBN': '9788491047625', 'numero_copia': 85, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-19'} )
+db.Prestamos.insertOne( {'RUT': '4567890123', 'ISBN': '9788491047625', 'numero_copia': 79, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-16'} )
+db.Prestamos.insertOne( {'RUT': '3210987653', 'ISBN': '9788491047632', 'numero_copia': 97, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-21'} )
+db.Prestamos.insertOne( {'RUT': '2109876543', 'ISBN': '9788491047632', 'numero_copia': 85, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-21'} )
+db.Prestamos.insertOne( {'RUT': '2345678900', 'ISBN': '9788491047649', 'numero_copia': 14, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-27'} )
+db.Prestamos.insertOne( {'RUT': '4567890123', 'ISBN': '9788491047649', 'numero_copia': 93, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-13'} )
+db.Prestamos.insertOne( {'RUT': '0987654325', 'ISBN': '9788432272013', 'numero_copia': 77, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-14'} )
+db.Prestamos.insertOne( {'RUT': '6543210984', 'ISBN': '9788432272013', 'numero_copia': 76, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-16'} )
+db.Prestamos.insertOne( {'RUT': '3456789015', 'ISBN': '9788432272013', 'numero_copia': 68, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-30'} )
+db.Prestamos.insertOne( {'RUT': '4567890122', 'ISBN': '9788493507155', 'numero_copia': 61, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-19'} )
+db.Prestamos.insertOne( {'RUT': '3456789015', 'ISBN': '9788493507155', 'numero_copia': 85, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-31'} )
+db.Prestamos.insertOne( {'RUT': '0987654325', 'ISBN': '9788493507155', 'numero_copia': 85, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-01'} )
+db.Prestamos.insertOne( {'RUT': '1234567892', 'ISBN': '9788493507155', 'numero_copia': 35, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-22'} )
+db.Prestamos.insertOne( {'RUT': '0987654325', 'ISBN': '9788420672410', 'numero_copia': 10, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-31'} )
+db.Prestamos.insertOne( {'RUT': '0987654325', 'ISBN': '9788416320141', 'numero_copia': 7, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-24'} )
+db.Prestamos.insertOne( {'RUT': '7890123451', 'ISBN': '9788493989257', 'numero_copia': 22, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-04'} )
+db.Prestamos.insertOne( {'RUT': '3210987653', 'ISBN': '9788416004563', 'numero_copia': 19, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-18'} )
+db.Prestamos.insertOne( {'RUT': '6789012348', 'ISBN': '9788437603780', 'numero_copia': 57, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-29'} )
+db.Prestamos.insertOne( {'RUT': '1234567890', 'ISBN': '9788437603780', 'numero_copia': 80, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-02'} )
+db.Prestamos.insertOne( {'RUT': '6789012348', 'ISBN': '9788496567175', 'numero_copia': 40, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-29'} )
+db.Prestamos.insertOne( {'RUT': '0987654325', 'ISBN': '9788449330824', 'numero_copia': 16, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-24'} )
+db.Prestamos.insertOne( {'RUT': '3456789015', 'ISBN': '9788498381573', 'numero_copia': 36, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-24'} )
+db.Prestamos.insertOne( {'RUT': '2109876543', 'ISBN': '9788498381580', 'numero_copia': 7, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-16'} )
+db.Prestamos.insertOne( {'RUT': '1234567892', 'ISBN': '9788498381580', 'numero_copia': 8, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-26'} )
+db.Prestamos.insertOne( {'RUT': '7890123451', 'ISBN': '9788498381580', 'numero_copia': 99, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-29'} )
+db.Prestamos.insertOne( {'RUT': '2345678907', 'ISBN': '9788498381597', 'numero_copia': 81, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-23'} )
+db.Prestamos.insertOne( {'RUT': '9012345674', 'ISBN': '9788498381597', 'numero_copia': 81, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-19'} )
+db.Prestamos.insertOne( {'RUT': '1234567890', 'ISBN': '9788498381597', 'numero_copia': 43, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-30'} )
+db.Prestamos.insertOne( {'RUT': '6543210984', 'ISBN': '9788498381597', 'numero_copia': 31, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-20'} )
+db.Prestamos.insertOne( {'RUT': '2109876543', 'ISBN': '9788490701826', 'numero_copia': 27, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-02'} )
+db.Prestamos.insertOne( {'RUT': '9876543211', 'ISBN': '9788466616941', 'numero_copia': 81, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-04'} )
+db.Prestamos.insertOne( {'RUT': '0123456789', 'ISBN': '9788466616941', 'numero_copia': 88, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-26'} )
+db.Prestamos.insertOne( {'RUT': '4567890122', 'ISBN': '9788439720503', 'numero_copia': 4, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-14'} )
+db.Prestamos.insertOne( {'RUT': '0123456789', 'ISBN': '9788483065281', 'numero_copia': 56, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-23'} )
+db.Prestamos.insertOne( {'RUT': '0987654325', 'ISBN': '9788483065281', 'numero_copia': 66, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-18'} )
+db.Prestamos.insertOne( {'RUT': '3210987653', 'ISBN': '9788483065281', 'numero_copia': 5, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-30'} )
+db.Prestamos.insertOne( {'RUT': '1234567892', 'ISBN': '9788433926828', 'numero_copia': 19, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-04'} )
+db.Prestamos.insertOne( {'RUT': '6789012348', 'ISBN': '9788439723825', 'numero_copia': 40, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-17'} )
+db.Prestamos.insertOne( {'RUT': '5432109870', 'ISBN': '9788439723825', 'numero_copia': 10, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-26'} )
+db.Prestamos.insertOne( {'RUT': '0987654325', 'ISBN': '9788439723825', 'numero_copia': 59, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-04'} )
+db.Prestamos.insertOne( {'RUT': '6543210984', 'ISBN': '9788432200876', 'numero_copia': 60, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-23'} )
+db.Prestamos.insertOne( {'RUT': '6789012348', 'ISBN': '9788432200876', 'numero_copia': 71, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-12'} )
+db.Prestamos.insertOne( {'RUT': '0123456789', 'ISBN': '9788432200876', 'numero_copia': 5, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-06-01'} )
+db.Prestamos.insertOne( {'RUT': '9876543211', 'ISBN': '9788432202719', 'numero_copia': 28, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-29'} )
+db.Prestamos.insertOne( {'RUT': '8901234561', 'ISBN': '9788432202719', 'numero_copia': 49, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-21'} )
+db.Prestamos.insertOne( {'RUT': '2345678900', 'ISBN': '9788432202719', 'numero_copia': 33, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-13'} )
+db.Prestamos.insertOne( {'RUT': '4567890123', 'ISBN': '9788433974806', 'numero_copia': 28, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-16'} )
+db.Prestamos.insertOne( {'RUT': '0987654325', 'ISBN': '9788420600000', 'numero_copia': 85, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-22'} )
+db.Prestamos.insertOne( {'RUT': '1234567890', 'ISBN': '9788420600000', 'numero_copia': 53, 'fecha_prestamo': '2024-05-05', 'fecha_devolucion': '2024-05-19'} )
