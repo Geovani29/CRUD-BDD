@@ -95,9 +95,9 @@
                         <td>{{ result.nombre_autor }}</td>
                         <td>{{ result.nombre_libro }}</td>
                         <td>{{ result.ISBN }}</td>
-                        <td>{{ result.año }}</td>
+                        <td>{{ result.año|int}}</td>
                         <td>{{ result.idioma }}</td>
-                        <td>{{ result.numero_copia }}</td>
+                        <td>{{ result.numero_copia|int }}</td>
                     </tr>
 {% endfor %}
                 </tbody>
