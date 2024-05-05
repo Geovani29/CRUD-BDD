@@ -561,6 +561,12 @@ def mostrar_resultados():
 def resultados_rut():
     if request.method == 'POST':
         rut = request.form['RUT']
+        if not rut:
+            flash('RUT es requerido', 'error')
+            return render_template('resultado2.html')
+        if not mongo.db.Usuarios.find_one({'RUT': rut}):
+            flash('Ese RUT no existe', 'error')
+            return render_template('resultado2.html', rut=rut)
         resultados_rut = mongo.db.Usuarios.aggregate([
             {
                 "$match": {

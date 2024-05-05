@@ -19,7 +19,7 @@
             align-items: center;
         }
 
-        .container {
+       .container {
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             padding: 20px;
@@ -52,7 +52,7 @@
         tbody tr:hover {
             background-color: #f9f9f9;
         }
-        .my-button {
+       .my-button {
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
@@ -67,6 +67,17 @@
     </style>
     <div class="container mt-5">
         <h1>Consulta por RUT</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form action="" method="post">
+            <input type="text" name="RUT" required placeholder="Ingresa un RUT">
+            <button type="submit" class="my-button" >Consultar</button>
+        </form>
         <table class="table mt-3">
             <thead>
                 <tr>
@@ -85,7 +96,7 @@
                     <td>{{ result.nombre }}</td>
                     <td>{{ result.nombre_libro }}</td>
                     <td>{{ result.ISBN }}</td>
-                    <td>{{ result.numero_copia|int }}</td>
+                    <td>{{ result.numero_copia }}</td>
                     <td>{{ result.fecha_prestamo }}</td>
                     <td>{{ result.fecha_devolucion }}</td>
                 </tr>

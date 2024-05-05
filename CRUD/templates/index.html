@@ -297,6 +297,7 @@ input[type="submit"]:hover {
     </div>
     <div class="side-container">
         <h2>Consultas</h2>
+        
         <form action="/resultados" method="post" class="resultados-form">
             <button type="submit" class="my-button">Mostrar Listado de Libros</button>
         </form>
@@ -305,7 +306,7 @@ input[type="submit"]:hover {
             <!-- Campo para ingresar el RUT -->
             <div id="rut-form-container" style="display: none;">
                 <label for="RUT">RUT:</label>
-                <input type="text" id="RUT_input" name="RUT"><br><br>
+                <input type="text" id="RUT_input" name="RUT" placeholder="Ingresa un RUT"><br><br>
                 <button id="submit-rut-btn" class="my-button" >Enviar</button>
             </div>
         </form>
