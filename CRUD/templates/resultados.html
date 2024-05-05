@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados de la consulta</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,14 +23,17 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px; /* Ajuste para separación desde la parte superior */
-            overflow-y: auto;
-            max-height: 80vh;
-            padding-bottom: 20px;
         }
 
         h1 {
             color: #333; /* Color de texto principal */
             text-align: center; /* Centrar el texto */
+        }
+
+        .table-container {
+            height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
         }
 
         table {
@@ -50,6 +51,9 @@
         th {
             background-color: #f2f2f2;
             font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
 
         tbody tr:hover {
@@ -68,33 +72,37 @@
     background-color: #45a049;
 }
     </style>
-    <div class="container mt-5" style="overflow-y: auto; max-height: 80vh; padding-bottom: 20px;">
+</head>
+<body>
+    <div class="container mt-5">
         <h1>Resultados de la consulta</h1>
-        <table class="table mt-3">
-            <thead>
-                <tr>
-                    <th>Nombre del Autor</th>
-                    <th>Titulo del Libro</th>
-                    <th>ISBN</th>
-                    <th>Año</th>
-                    <th>Idioma</th>
-                    <th>Número de Copia</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for result in resultados %}
-                <tr>
-                    <td>{{ result.nombre_autor }}</td>
-                    <td>{{ result.nombre_libro }}</td>
-                    <td>{{ result.ISBN }}</td>
-                    <td>{{ result.año }}</td>
-                    <td>{{ result.idioma }}</td>
-                    <td>{{ result.numero_copia }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            <button onclick="window.location.href = '/';" class="my-button mt-3">Atrás</button>
-        </table>
+        <button onclick="window.location.href = '/';" class="my-button mt-3">Atrás</button>
+        <div class="table-container">
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Nombre del Autor</th>
+                        <th>Titulo del Libro</th>
+                        <th>ISBN</th>
+                        <th>Año</th>
+                        <th>Idioma</th>
+                        <th>Número de Copia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in resultados %}
+                    <tr>
+                        <td>{{ result.nombre_autor }}</td>
+                        <td>{{ result.nombre_libro }}</td>
+                        <td>{{ result.ISBN }}</td>
+                        <td>{{ result.año }}</td>
+                        <td>{{ result.idioma }}</td>
+                        <td>{{ result.numero_copia }}</td>
+                    </tr>
+{% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
