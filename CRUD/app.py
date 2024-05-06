@@ -25,11 +25,11 @@ def gestionar_datos():
                     flash('Nombre de autor es requerido', 'error')
                     return render_template('index.html')
                 if not re.match(r'^[a-zA-Z\s]+$', nombre):
-                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    flash('solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 # Verificar si el nombre de autor ya existe
                 if mongo.db.Autor.find_one({'nombre': nombre}):
-                    flash('Nombre de autor duplicado. Ingrese un nombre diferente', 'error')
+                    flash('Nombre de autor duplicado.', 'error')
                     return render_template('index.html')
                 else:
                     mongo.db.Autor.insert_one({'nombre': nombre})
@@ -41,13 +41,13 @@ def gestionar_datos():
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
                 if not re.match(r'^[a-zA-Z\s]+$', nombre):
-                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    flash('Autor solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 if not mongo.db.Autor.find_one({'nombre': nombre}):
                     flash('Ese autor no existe', 'error')
                     return render_template('index.html')
                 if mongo.db.Autor.find_one({'nombre': nombre_nuevo}):
-                    flash('Nombre de autor duplicado. Ingrese un nombre diferente', 'error')
+                    flash('Nombre de autor duplicado.', 'error')
                     return render_template('index.html')
                 mongo.db.Autor.update_one({'nombre': nombre}, {'$set': {'nombre': nombre_nuevo}})
                 flash('Autor actualizado correctamente', 'success')
@@ -59,7 +59,7 @@ def gestionar_datos():
                     flash('Nombre de autor es requerido', 'error')
                     return render_template('index.html')
                 if not re.match(r'^[a-zA-Z\s]+$', nombre):
-                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    flash('Autor solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 if not mongo.db.Autor.find_one({'nombre': request.form['nombre']}):
                     flash('Ese autor no existe', 'error')
@@ -75,7 +75,7 @@ def gestionar_datos():
                     flash('Titulo de libro es requerido', 'error')
                     return render_template('index.html')
                 if mongo.db.Libros.find_one({'titulo': nombre_libro}):
-                    flash('Titulo de libro duplicado. Ingrese un nombre diferente', 'error')
+                    flash('Titulo de libro duplicado.', 'error')
                     return render_template('index.html')
                 else:
                     mongo.db.Libros.insert_one({'titulo': nombre_libro})
@@ -90,7 +90,7 @@ def gestionar_datos():
                     flash('Ese libro no existe', 'error')
                     return render_template('index.html')
                 if mongo.db.Libros.find_one({'titulo': nombre_nuevo}): 
-                    flash('Titulo de libro duplicado. Ingrese un nombre diferente', 'error')
+                    flash('Titulo de libro duplicado.', 'error')
                     return render_template('index.html')
                 mongo.db.Libros.update_one({'titulo': nombre_libro}, {'$set': {'titulo': nombre_nuevo}})
                 flash('libro actualizado correctamente', 'success')
@@ -120,7 +120,7 @@ def gestionar_datos():
                     flash('Idioma solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 if mongo.db.Ediciones.find_one({'ISBN': isbn}):
-                    flash('ISBN de edición duplicado. Ingrese un ISBN diferente', 'error')
+                    flash('ISBN de edición duplicado.', 'error')
                     return render_template('index.html')
                 else: 
                     mongo.db.Ediciones.insert_one({'ISBN': isbn, 'año': año, 'idioma': idioma})
@@ -143,7 +143,7 @@ def gestionar_datos():
                     flash('Ese ISBN no existe', 'error')
                     return render_template('index.html')
                 if mongo.db.Ediciones.find_one({'ISBN': isbn_nuevo}):
-                    flash('ISBN de edición duplicado. Ingrese un ISBN diferente', 'error')
+                    flash('ISBN de edición duplicado.', 'error')
                     return render_template('index.html')
                 mongo.db.Ediciones.update_one({'ISBN': isbn}, {'$set': {'idioma': idioma_nuevo}})
                 flash('Edición actualizada correctamente', 'success')
@@ -412,7 +412,7 @@ def gestionar_datos():
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
                 if not re.match(r'^[a-zA-Z\s]+$', nombre_autor):
-                    flash('Nombre de autor solo puede contener letras y espacios', 'error')
+                    flash('Autor solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 if not mongo.db.Autores.find_one({'nombre del autor': nombre_autor, 'nombre del libro': nombre_libro}): 
                     flash('Ese autor y libro no existe', 'error')
