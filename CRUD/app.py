@@ -612,6 +612,69 @@ def resultados_rut():
         # Si la solicitud es GET, simplemente renderiza la página resultados_rut.html sin resultados
         return render_template('resultado2.html')
 
+@app.route('/TablaAutor', methods=['GET', 'POST'])
+def Tabla_Autor():
+    if request.method == 'POST':
+        resultados_autor = mongo.db.Autor.find()
+        return render_template('TablaAutor.html', resultados=resultados_autor)
+    else:
+        return render_template('TablaAutor.html')
+
+@app.route('/TablaAutores', methods=['GET', 'POST'])
+def Tabla_Autores():
+    if request.method == 'POST':
+        resultados_autores = mongo.db.Autores.find()
+        return render_template('TablaAutores.html', resultados=resultados_autores)
+    else:
+        return render_template('TablaAutores.html')
+    
+@app.route('/TablaLibros', methods=['GET', 'POST'])
+def Tabla_Libros():
+    if request.method == 'POST':
+        resultados_libro = mongo.db.Libros.find()
+        return render_template('TablaLibros.html', resultados=resultados_libro)
+    else:
+        return render_template('TablaLibros.html')
+
+@app.route('/TablaEdiciones', methods=['GET', 'POST'])
+def Tabla_Ediciones():
+    if request.method == 'POST':
+        resultados_ediciones = mongo.db.Ediciones.find()
+        return render_template('TablaEdiciones.html', resultados=resultados_ediciones)
+    else:
+        return render_template('TablaEdiciones.html')
+    
+@app.route('/TablaTiene', methods=['GET', 'POST'])
+def Tabla_Tiene():
+    if request.method == 'POST':
+        resultados_Tiene = mongo.db.Tiene.find()
+        return render_template('TablaTiene.html', resultados=resultados_Tiene)
+    else:
+        return render_template('TablaTiene.html')
+    
+@app.route('/TablaUsuarios', methods=['GET', 'POST'])
+def Tabla_Usuarios():
+    if request.method == 'POST':
+        resultados_Usuarios = mongo.db.Usuarios.find()
+        return render_template('TablaUsuarios.html', resultados=resultados_Usuarios)
+    else:
+        return render_template('TablaUsuarios.html')
+    
+@app.route('/TablaPrestamos', methods=['GET', 'POST'])
+def Tabla_Prestamos():
+    if request.method == 'POST':
+        resultados_prestamos = mongo.db.Prestamos.find()
+        return render_template('TablaPrestamos.html', resultados=resultados_prestamos)
+    else:
+        return render_template('TablaPrestamos.html')
+    
+@app.route('/TablaCopias', methods=['GET', 'POST'])
+def Tabla_Copias():
+    if request.method == 'POST':
+        resultados_copias = mongo.db.Copias.find()
+        return render_template('TablaCopias.html', resultados=resultados_copias)
+    else:
+        return render_template('TablaCopias.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
