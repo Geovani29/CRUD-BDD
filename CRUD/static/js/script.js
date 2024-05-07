@@ -125,6 +125,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('fecha_prestamo_nuevo_fields').style.display = 'none';
                 document.getElementById('fecha_devolucion_nuevo_fields').style.display = 'none';
             }
+            var tipoEntidad = document.getElementById('tipo_entidad').value;
+            var operacion = document.getElementById('operacion').value;
+            localStorage.setItem('tipo_entidad', tipoEntidad);
+            localStorage.setItem('operacion', operacion);
         }
 
         function resetForm() {
@@ -148,14 +152,28 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Mostrar campos al cargar la página si es necesario
         window.onload = function() {
+            // Establecer tipo de entidad predeterminado como Autor solo si no hay un valor guardado
             var tipoEntidadGuardada = localStorage.getItem('tipo_entidad');
-            var operacionGuardada = localStorage.getItem('operacion');
+            if (!tipoEntidadGuardada) {
+                var tipoEntidadPredeterminado = 'autor';
+                document.getElementById('tipo_entidad').value = tipoEntidadPredeterminado;
+            }
 
+            // Establecer operación predeterminada como Insertar solo si no hay un valor guardado
+            var operacionGuardada = localStorage.getItem('operacion');
+            if (!operacionGuardada) {
+                var operacionPredeterminada = 'insertar';
+                document.getElementById('operacion').value = operacionPredeterminada;
+            }
+
+            // Establecer las selecciones guardadas en el localStorage si existen
             if (tipoEntidadGuardada && operacionGuardada) {
                 document.getElementById('tipo_entidad').value = tipoEntidadGuardada;
                 document.getElementById('operacion').value = operacionGuardada;
-                mostrarCampos();
             }
+
+            // Mostrar los campos correspondientes al cargar la página
+            mostrarCampos();
         };
     
         // Recordar la selección de la entidad después de enviar el formulario
