@@ -1,12 +1,25 @@
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #e0f3ff, #a6d8ff);
+    background-image: url("../back.jpg");
+    background-size: cover;
     margin: 0;
     padding: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.overlay-text {
+    position: absolute;
+    top: 20px; /* Ajusta la distancia desde la parte superior */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff; /* Cambia el color del texto a blanco */
+    font-size: 36px; /* Ajusta el tamaño de la fuente */
+    font-weight: bold;
+    font-family: Arial, sans-serif; /* Utiliza la fuente Arial como en los otros textos */
+    text-align: center;
+    z-index: 1000;
 }
 
 .container {
