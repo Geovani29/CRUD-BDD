@@ -146,8 +146,10 @@ input[type="submit"]:hover {
 
 .animated-text {
   position: absolute;
-  left: 50px; /* Ajusta la posición horizontal según sea necesario */
-  top: 50%; /* Centra verticalmente */
+   /* Ajusta la posición horizontal según sea necesario */
+  bottom: 75%;
+  left: 35%;
+ /* Centra verticalmente */
   transform: translateY(-50%);
   animation: moveArc 8s linear infinite; /* Aumenté la duración de la animación */
 }
@@ -172,7 +174,7 @@ input[type="submit"]:hover {
   padding: 0;
   font-size: 60px; /* Ajusta el tamaño del texto según sea necesario */
   font-weight: bold;
-  color: #333; /* Ajusta el color del texto */
+  color: white; /* Ajusta el color del texto */
   animation: fadeInOut 8s ease-in-out infinite alternate; /* Aumenté la duración de la animación */
 }
 

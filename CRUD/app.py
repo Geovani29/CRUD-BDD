@@ -24,7 +24,7 @@ def gestionar_datos():
                 if not nombre:
                     flash('Nombre de autor es requerido', 'error')
                     return render_template('index.html')
-                if not re.match(r'^[a-zA-Z\s]+$', nombre):
+                if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', nombre):
                     flash('Nombre de autor solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 # Verificar si el nombre de autor ya existe
@@ -41,7 +41,7 @@ def gestionar_datos():
                 if not all([nombre, nombre_nuevo]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-                if not re.match(r'^[a-zA-Z\s]+$', nombre):
+                if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', nombre):
                     flash('Error en nombre de autor', 'error')
                     flash('solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
@@ -52,6 +52,8 @@ def gestionar_datos():
                     flash('Nombre de autor duplicado.', 'error')
                     flash('Ingrese un nombre diferente', 'error')
                     return render_template('index.html')
+                for autor in mongo.db.Autores.find({'nombre del autor': nombre}):
+                    mongo.db.Autores.update_one({'nombre del autor': autor['nombre del autor'], 'nombre del libro':autor['nombre del libro']}, {'$set': {'nombre del autor': nombre_nuevo, 'nombre del libro': autor['nombre del libro']}})
                 mongo.db.Autor.update_one({'nombre': nombre}, {'$set': {'nombre': nombre_nuevo}})
                 flash('Autor actualizado correctamente', 'success')
                 
@@ -61,7 +63,7 @@ def gestionar_datos():
                 if not request.form.get('nombre'):
                     flash('Nombre de autor es requerido', 'error')
                     return render_template('index.html')
-                if not re.match(r'^[a-zA-Z\s]+$', nombre):
+                if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', nombre):
                     flash('Error en nombre de autor', 'error')
                     flash('solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
@@ -69,9 +71,12 @@ def gestionar_datos():
                     flash('Ese autor no existe', 'error')
                     return render_template('index.html')
                 mongo.db.Autor.delete_one({'nombre': nombre})
+                for autor in mongo.db.Autores.find({'nombre del autor': nombre}):
+                    mongo.db.Autores.delete_one({'nombre del autor': autor['nombre del autor']})
                 flash('Autor eliminado correctamente', 'success')
             tipo_entidad = request.form['tipo_entidad']
             operacion = request.form['operacion']
+
         elif tipo_entidad == 'libro':
             if operacion == 'insertar':
                 nombre_libro = request.form['titulo']
@@ -98,6 +103,10 @@ def gestionar_datos():
                     flash('Titulo de libro duplicado.', 'error')
                     flash('Ingrese un nombre diferente', 'error')
                     return render_template('index.html')
+                for libro in mongo.db.Autores.find({'nombre del libro': nombre_libro}):
+                    mongo.db.Autores.update_one({'nombre del autor': libro['nombre del autor'], 'nombre del libro': libro['nombre del libro']}, {'$set': {'nombre del autor': libro['nombre del autor'], 'nombre del libro': nombre_nuevo}})
+                for libro2 in mongo.db.Tiene.find({'nombre del libro': nombre_libro}):
+                    mongo.db.Tiene.update_one({'nombre del libro': libro2['nombre del libro'], 'ISBN': libro2['ISBN']}, {'$set': {'nombre del libro': nombre_nuevo, 'ISBN': libro2['ISBN']}})
                 mongo.db.Libros.update_one({'titulo': nombre_libro}, {'$set': {'titulo': nombre_nuevo}})
                 flash('libro actualizado correctamente', 'success')
             elif operacion == 'borrar':
@@ -108,6 +117,11 @@ def gestionar_datos():
                     flash('Ese libro no existe', 'error')
                     return render_template('index.html')
                 nombre_libro = request.form['titulo']
+                for libro in mongo.db.Autores.find({'nombre del libro': nombre_libro}):
+                    mongo.db.Autores.delete_one({'nombre del autor': libro['nombre del autor'], 'nombre del libro': libro['nombre del libro']})
+                for libro2 in mongo.db.Tiene.find({'nombre del libro': nombre_libro}):
+                    print(libro2)
+                    mongo.db.Tiene.delete_one({'nombre del libro': libro2['nombre del libro'], 'ISBN': libro2['ISBN']})
                 mongo.db.Libros.delete_one({'titulo': nombre_libro})
                 flash('libro eliminado correctamente', 'success')
 
@@ -122,7 +136,7 @@ def gestionar_datos():
                 if not re.match(r'^[0-9]+$', año):
                     flash('Año debe ser un número', 'error')
                     return render_template('index.html')
-                if not re.match(r'^[a-zA-Z\s]+$', idioma):
+                if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', idioma):
                     flash('Idioma solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 if mongo.db.Ediciones.find_one({'ISBN': isbn}):
@@ -143,7 +157,7 @@ def gestionar_datos():
                 if not re.match(r'^[0-9]+$', año_nuevo):
                     flash('Año debe ser un número', 'error')
                     return render_template('index.html')
-                if not re.match(r'^[a-zA-Z\s]+$', idioma_nuevo):
+                if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', idioma_nuevo):
                     flash('Idioma solo puede contener letras y espacios', 'error')
                     return render_template('index.html')
                 if not mongo.db.Ediciones.find_one({'ISBN': isbn}):
@@ -163,6 +177,10 @@ def gestionar_datos():
                 if not mongo.db.Ediciones.find_one({'ISBN': isbn }): 
                     flash('Ese ISBN no existe', 'error')
                     return render_template('index.html')
+                for edicion in mongo.db.Tiene.find({'ISBN': isbn}):
+                    mongo.db.Tiene.delete_one({'nombre del libro': edicion['nombre del libro'], 'ISBN': edicion['ISBN']})
+                for edicion in mongo.db.Copias.find({'ISBN': isbn}):
+                    mongo.db.Copias.delete_one({'ISBN': edicion['ISBN'], 'numero': edicion['numero']})
                 mongo.db.Ediciones.delete_one({'ISBN': isbn})
                 flash('Edición eliminada correctamente', 'success')
             
@@ -235,7 +253,7 @@ def gestionar_datos():
                     if mongo.db.Usuarios.find_one({'RUT': RUT}): 
                         flash('Ese RUT ya existe', 'error')
                         return render_template('index.html')
-                    if not re.match(r'^[a-zA-Z\s]+$', nombre):
+                    if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', nombre):
                         flash('Nombre solo puede contener letras y espacios', 'error')
                         return render_template('index.html')
 
@@ -252,7 +270,7 @@ def gestionar_datos():
                     if not mongo.db.Usuarios.find_one({'RUT': RUT}): 
                         flash('Ese RUT no existe', 'error')
                         return render_template('index.html')
-                    if not re.match(r'^[a-zA-Z\s]+$', nombre_nuevo):
+                    if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', nombre_nuevo):
                         flash('Nombre solo puede contener letras y espacios', 'error')
                         return render_template('index.html')
                     if mongo.db.Prestamos.find_one({'RUT': RUT}):
@@ -382,7 +400,7 @@ def gestionar_datos():
                 if not all([nombre_autor, nombre_libro]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-                if not re.match(r'^[a-zA-Z\s]+$', nombre_autor):
+                if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', nombre_autor):
                     flash('Nombre de autor solo puede', 'error')
                     flash('contener letras y espacios', 'error')
                     return render_template('index.html')
@@ -406,7 +424,7 @@ def gestionar_datos():
                 if not all([nombre_autor, nombre_libro, nombre_nuevo_a, nombre_nuevo]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-                if not re.match(r'^[a-zA-Z\s]+$', nombre_autor):
+                if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', nombre_autor):
                     flash('Nombre de autor solo puede', 'error')
                     flash('contener letras y espacios', 'error')
                     return render_template('index.html')
@@ -425,7 +443,7 @@ def gestionar_datos():
                 if not all([nombre_autor, nombre_libro]):
                     flash('Todos los campos son requeridos', 'error')
                     return render_template('index.html')
-                if not re.match(r'^[a-zA-Z\s]+$', nombre_autor):
+                if not re.match(r'^[a-zA-Z\sáéíóúÁÉÍÓÚüÜñÑ]+$', nombre_autor):
                     flash('Nombre de autor solo puede', 'error')
                     flash('contener letras y espacios', 'error')
                     return render_template('index.html')
@@ -456,7 +474,12 @@ def gestionar_datos():
                 if mongo.db.Tiene.find_one({'nombre del libro': nombre_libro, 'ISBN': ISBN}): 
                     flash('Ese libro e ISBN ya existe', 'error')
                     return render_template('index.html')
-                
+                if mongo.db.Tiene.find_one({'nombre del libro': nombre_libro, 'ISBN': ISBN}):
+                    flash('Ese libro e ISBN ya existe', 'error')
+                    return render_template('index.html')
+                if mongo.db.Tiene.find_one({'ISBN': ISBN}):
+                    flash('Ese ISBN ya existe', 'error')
+                    return render_template('index.html')
                 mongo.db.Tiene.insert_one({'nombre del libro': nombre_libro, 'ISBN': ISBN})
                 flash('Libro e ISBN insertado correctamente', 'success')
             elif operacion == 'actualizar':
